@@ -18,7 +18,7 @@ namespace CSharp_Inventory
             InitializeComponent();
         }
 
-        SqlConnector sqlConnector = new SqlConnector();
+        SqlConnector connector = new SqlConnector();
         
         private void ClosingLabel_Click(object sender, EventArgs e)
         {
@@ -27,6 +27,7 @@ namespace CSharp_Inventory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            bool validPerson = true;
             PersonModel person = new PersonModel();
             person.UserName = UsernameTextbox.Text;
             person.Password = PasswordTextbox.Text;
@@ -36,8 +37,14 @@ namespace CSharp_Inventory
             person.Age = int.Parse(AgeTextbox.Text);
             person.Email = EmailTextbox.Text;
 
-            sqlConnector.AddPerson(person);
+            validPerson = connector.isUsernameUnique(person.UserName);
+            // check password if greater than 8
+            // check all inputs are not empty
 
+            if (validPerson == true)
+            {
+                connector.AddPerson(person);
+            }
 
         }
     }

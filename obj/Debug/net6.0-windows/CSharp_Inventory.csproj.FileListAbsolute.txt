@@ -24,4 +24,3 @@ D:\codingProject\CSharp_Inventory\bin\Debug\net6.0-windows\runtimes\win-x86\nati
 D:\codingProject\CSharp_Inventory\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\codingProject\CSharp_Inventory\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.csproj.CopyComplete
-D:\codingProject\CSharp_Inventory\bin\Debug\net6.0-windows\Dapper.dll
