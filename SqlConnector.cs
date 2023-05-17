@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
 using System.Reflection;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CSharp_Inventory
 {
-    public class SqlConnector
+    public class SqlConnector : IDataConnection
     {
         private const string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\fexke\Documents\InventoryDB.mdf;Integrated Security=True;Connect Timeout=30";
 
@@ -39,30 +40,26 @@ namespace CSharp_Inventory
             }
         }
 
-        public bool isUsernameUnique(string username)
+        public bool IsDataUnique(string table, string dataLabel, string data)
         {
-            bool result = true;
-
-            string query = "SELECT username FROM UserTable WHERE username = @username";
+            string query = "SELECT " + dataLabel + " FROM " + table + " WHERE " + dataLabel + " = @" + dataLabel;
 
             using (SqlConnection conn = new SqlConnection(connStr))
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@"+ dataLabel + "", data);
 
                 conn.Open();
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    if(dr.Read())
+                    if (dr.Read())
                     {
-                        result = false;
-                        MessageBox.Show("Username already existed");
+                        return false;            
                     }
                 }
             }
-
-            return result;
+            return true;
         }
     }
 }
