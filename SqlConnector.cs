@@ -40,6 +40,32 @@ namespace CSharp_Inventory
             }
         }
 
+        public void EditPerson(PersonModel model)
+        {
+            string query = "UPDATE UserTable SET ";
+            query += "Password = @Password, FirstName = @FirstName, LastName = @LastName, ";
+            query += "Gender = @Gender, Age = @Age, Email = @Email ";
+            query += "WHERE Username = @Username";
+
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Username", model.UserName);
+                    cmd.Parameters.AddWithValue("@Password", model.Password);
+                    cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@Gender", model.Gender);
+                    cmd.Parameters.AddWithValue("@Age", model.Age);
+                    cmd.Parameters.AddWithValue("@Email", model.Email);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;

@@ -30,10 +30,11 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.UsersManagementTopPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ClosingLabel = new System.Windows.Forms.Label();
-            this.InventorySystemUMFormLabel = new System.Windows.Forms.Label();
+            this.InventorySystemLabel = new System.Windows.Forms.Label();
             this.ManageUserLabel = new System.Windows.Forms.Label();
             this.UsernameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +55,8 @@
             this.GenderTextbox = new System.Windows.Forms.TextBox();
             this.AgeTextbox = new System.Windows.Forms.TextBox();
             this.AgeLabel = new System.Windows.Forms.Label();
-            this.ClearLabel = new System.Windows.Forms.Label();
+            this.ClearButton = new System.Windows.Forms.Button();
+            this.UsersListLable = new System.Windows.Forms.Label();
             this.UsersManagementTopPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UsersDataGridView)).BeginInit();
@@ -64,7 +66,7 @@
             // 
             this.UsersManagementTopPanel.BackColor = System.Drawing.Color.LemonChiffon;
             this.UsersManagementTopPanel.Controls.Add(this.panel1);
-            this.UsersManagementTopPanel.Controls.Add(this.InventorySystemUMFormLabel);
+            this.UsersManagementTopPanel.Controls.Add(this.InventorySystemLabel);
             this.UsersManagementTopPanel.Controls.Add(this.ManageUserLabel);
             this.UsersManagementTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.UsersManagementTopPanel.Location = new System.Drawing.Point(0, 0);
@@ -93,20 +95,22 @@
             this.ClosingLabel.Text = "X";
             this.ClosingLabel.Click += new System.EventHandler(this.ClosingLabel_Click);
             // 
-            // InventorySystemUMFormLabel
+            // InventorySystemLabel
             // 
-            this.InventorySystemUMFormLabel.AutoSize = true;
-            this.InventorySystemUMFormLabel.Font = new System.Drawing.Font("Century Gothic", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.InventorySystemUMFormLabel.ForeColor = System.Drawing.Color.DarkRed;
-            this.InventorySystemUMFormLabel.Location = new System.Drawing.Point(0, 0);
-            this.InventorySystemUMFormLabel.Name = "InventorySystemUMFormLabel";
-            this.InventorySystemUMFormLabel.Size = new System.Drawing.Size(322, 44);
-            this.InventorySystemUMFormLabel.TabIndex = 1;
-            this.InventorySystemUMFormLabel.Text = "Inventory System";
+            this.InventorySystemLabel.AutoSize = true;
+            this.InventorySystemLabel.BackColor = System.Drawing.Color.MistyRose;
+            this.InventorySystemLabel.Font = new System.Drawing.Font("Century Gothic", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.InventorySystemLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.InventorySystemLabel.Location = new System.Drawing.Point(0, 0);
+            this.InventorySystemLabel.Name = "InventorySystemLabel";
+            this.InventorySystemLabel.Size = new System.Drawing.Size(322, 44);
+            this.InventorySystemLabel.TabIndex = 1;
+            this.InventorySystemLabel.Text = "Inventory System";
             // 
             // ManageUserLabel
             // 
             this.ManageUserLabel.AutoSize = true;
+            this.ManageUserLabel.BackColor = System.Drawing.Color.LemonChiffon;
             this.ManageUserLabel.Font = new System.Drawing.Font("Century Gothic", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ManageUserLabel.ForeColor = System.Drawing.SystemColors.GrayText;
             this.ManageUserLabel.Location = new System.Drawing.Point(399, 28);
@@ -177,6 +181,7 @@
             this.EditButton.TabIndex = 5;
             this.EditButton.Text = "EDIT";
             this.EditButton.UseVisualStyleBackColor = false;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // PasswordLabel
             // 
@@ -256,32 +261,47 @@
             // 
             // UsersDataGridView
             // 
-            this.UsersDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.UsersDataGridView.AllowUserToAddRows = false;
+            this.UsersDataGridView.AllowUserToDeleteRows = false;
+            this.UsersDataGridView.AllowUserToResizeColumns = false;
+            this.UsersDataGridView.AllowUserToResizeRows = false;
+            this.UsersDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Maroon;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.UsersDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.RosyBrown;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.UsersDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.UsersDataGridView.Location = new System.Drawing.Point(572, 152);
+            this.UsersDataGridView.GridColor = System.Drawing.SystemColors.Control;
+            this.UsersDataGridView.Location = new System.Drawing.Point(572, 235);
             this.UsersDataGridView.Name = "UsersDataGridView";
             this.UsersDataGridView.ReadOnly = true;
-            this.UsersDataGridView.RowHeadersWidth = 51;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.UsersDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.UsersDataGridView.RowHeadersWidth = 30;
             this.UsersDataGridView.RowTemplate.Height = 33;
-            this.UsersDataGridView.Size = new System.Drawing.Size(568, 537);
+            this.UsersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.UsersDataGridView.Size = new System.Drawing.Size(568, 454);
             this.UsersDataGridView.TabIndex = 14;
             this.UsersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UsersDataGridView_CellContentClick);
+            this.UsersDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.UsersDataGridView_RowPostPaint);
             // 
             // HomeButton
             // 
@@ -337,18 +357,32 @@
             this.AgeLabel.TabIndex = 19;
             this.AgeLabel.Text = "Age:";
             // 
-            // ClearLabel
+            // ClearButton
             // 
-            this.ClearLabel.AutoSize = true;
-            this.ClearLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ClearLabel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ClearLabel.ForeColor = System.Drawing.Color.Crimson;
-            this.ClearLabel.Location = new System.Drawing.Point(275, 666);
-            this.ClearLabel.Name = "ClearLabel";
-            this.ClearLabel.Size = new System.Drawing.Size(63, 23);
-            this.ClearLabel.TabIndex = 20;
-            this.ClearLabel.Text = "Clear";
-            this.ClearLabel.Click += new System.EventHandler(this.ClearLabel_Click);
+            this.ClearButton.BackColor = System.Drawing.Color.BurlyWood;
+            this.ClearButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ClearButton.FlatAppearance.BorderSize = 0;
+            this.ClearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ClearButton.ForeColor = System.Drawing.SystemColors.Info;
+            this.ClearButton.Location = new System.Drawing.Point(257, 660);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(94, 29);
+            this.ClearButton.TabIndex = 21;
+            this.ClearButton.Text = "CLEAR";
+            this.ClearButton.UseVisualStyleBackColor = false;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
+            // UsersListLable
+            // 
+            this.UsersListLable.AutoSize = true;
+            this.UsersListLable.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.UsersListLable.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.UsersListLable.ForeColor = System.Drawing.Color.RosyBrown;
+            this.UsersListLable.Location = new System.Drawing.Point(744, 161);
+            this.UsersListLable.Name = "UsersListLable";
+            this.UsersListLable.Size = new System.Drawing.Size(238, 47);
+            this.UsersListLable.TabIndex = 22;
+            this.UsersListLable.Text = "List of Users";
             // 
             // UsersManagementForm
             // 
@@ -356,7 +390,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.ClientSize = new System.Drawing.Size(1280, 720);
-            this.Controls.Add(this.ClearLabel);
+            this.Controls.Add(this.UsersListLable);
+            this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.AgeLabel);
             this.Controls.Add(this.AgeTextbox);
             this.Controls.Add(this.GenderTextbox);
@@ -397,7 +432,7 @@
 
         private Panel UsersManagementTopPanel;
         private Label ManageUserLabel;
-        private Label InventorySystemUMFormLabel;
+        private Label InventorySystemLabel;
         private TextBox UsernameTextbox;
         private Label label1;
         private Button AddButton;
@@ -419,6 +454,7 @@
         private Label AgeLabel;
         private Panel panel1;
         private Label ClosingLabel;
-        private Label ClearLabel;
+        private Button ClearButton;
+        private Label UsersListLable;
     }
 }

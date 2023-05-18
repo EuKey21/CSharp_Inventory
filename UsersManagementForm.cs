@@ -30,19 +30,27 @@ namespace CSharp_Inventory
         {
             if(ValidateForm() == true)
             {
-                PersonModel person = new PersonModel();
-                person.UserName = UsernameTextbox.Text;
-                person.Password = PasswordTextbox.Text;
-                person.FirstName = FirstNameTextbox.Text;
-                person.LastName = LastNameTextbox.Text;
-                person.Gender = char.Parse(GenderTextbox.Text.ToUpper());
-                person.Age = int.Parse(AgeTextbox.Text);
-                person.Email = EmailTextbox.Text;
+                if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == true)
+                {
+                    PersonModel person = new PersonModel();
+                    person.UserName = UsernameTextbox.Text;
+                    person.Password = PasswordTextbox.Text;
+                    person.FirstName = FirstNameTextbox.Text;
+                    person.LastName = LastNameTextbox.Text;
+                    person.Gender = char.Parse(GenderTextbox.Text.ToUpper());
+                    person.Age = int.Parse(AgeTextbox.Text);
+                    person.Email = EmailTextbox.Text;
 
-                Config.Connection.AddPerson(person);
-                MessageBox.Show("User Successfully Added");
-                PopulateUserTable();
+                    Config.Connection.AddPerson(person);
+                    MessageBox.Show("User Successfully Added");
+                    PopulateUserTable();
+                }
+                else
+                {
+                    MessageBox.Show("Username already existed");
+                }
             }
+                
         }
 
         private bool ValidateForm()
@@ -50,11 +58,6 @@ namespace CSharp_Inventory
             if (UsernameTextbox.Text.Length == 0)
             {
                 MessageBox.Show("Please fill all boxes");
-                return false;
-            }
-            else if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == false)
-            {
-                MessageBox.Show("Username already existed");
                 return false;
             }
 
@@ -136,18 +139,7 @@ namespace CSharp_Inventory
 
         private void UsersManagementForm_Load(object sender, EventArgs e)
         {
-            PopulateUserTable();
-        }
-
-        private void ClearLabel_Click(object sender, EventArgs e)
-        {
-            UsernameTextbox.Text = "";
-            PasswordTextbox.Text = "";
-            FirstNameTextbox.Text = "";
-            LastNameTextbox.Text = "";
-            GenderTextbox.Text = "";
-            AgeTextbox.Text = "";
-            EmailTextbox.Text = "";
+            PopulateUserTable();   
         }
 
         private void DelButton_Click(object sender, EventArgs e)
@@ -178,8 +170,62 @@ namespace CSharp_Inventory
                 GenderTextbox.Text = row.Cells[4].Value.ToString();
                 AgeTextbox.Text = row.Cells[5].Value.ToString();
                 EmailTextbox.Text = row.Cells[6].Value.ToString();
-
             } 
+        }
+
+        private void UsersDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            DataGridView grid = sender as DataGridView;
+            string rowIdx = (e.RowIndex + 1).ToString();
+
+            StringFormat centerFormat = new StringFormat()
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            Font font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+
+            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, font, SystemBrushes.ControlText, headerBounds, centerFormat);
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            UsernameTextbox.Text = "";
+            PasswordTextbox.Text = "";
+            FirstNameTextbox.Text = "";
+            LastNameTextbox.Text = "";
+            GenderTextbox.Text = "";
+            AgeTextbox.Text = "";
+            EmailTextbox.Text = "";
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if (ValidateForm() == true)
+            {
+                if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == false)
+                {
+                    PersonModel person = new PersonModel();
+                    person.UserName = UsernameTextbox.Text;
+                    person.Password = PasswordTextbox.Text;
+                    person.FirstName = FirstNameTextbox.Text;
+                    person.LastName = LastNameTextbox.Text;
+                    person.Gender = char.Parse(GenderTextbox.Text.ToUpper());
+                    person.Age = int.Parse(AgeTextbox.Text);
+                    person.Email = EmailTextbox.Text;
+
+                    Config.Connection.EditPerson(person);
+                    MessageBox.Show("User Successfully Edited");
+                    PopulateUserTable();
+                }
+                else
+                {
+                    MessageBox.Show("Username is not allowed to be edited");
+                }
+                    
+            }
         }
     }
 }

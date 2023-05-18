@@ -19,6 +19,11 @@ namespace CSharp_Inventory
             throw new NotImplementedException();
         }
 
+        public void EditPerson(PersonModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<PersonModel> GetAllPerson()
         {
             throw new NotImplementedException();

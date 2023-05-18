@@ -11,6 +11,8 @@ namespace CSharp_Inventory
     {
         void AddPerson(PersonModel model);
 
+        public void EditPerson(PersonModel model);
+
         bool IsDataUnique(string table, string dataLabel, string data);
 
         public List<PersonModel> GetAllPerson();
