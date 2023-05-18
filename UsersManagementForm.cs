@@ -169,19 +169,16 @@ namespace CSharp_Inventory
         {
             if (e.RowIndex >= 0)
             {
-                int ind = e.RowIndex;
-                DataGridViewRow selectedRows = UsersDataGridView.Rows[ind];
+                DataGridViewRow row = UsersDataGridView.Rows[e.RowIndex];
 
-                if (selectedRows != null)
-                {
-                    UsernameTextbox.Text = selectedRows.Cells[0].Value.ToString();
-                    PasswordTextbox.Text = selectedRows.Cells[1].Value.ToString();
-                    FirstNameTextbox.Text = selectedRows.Cells[2].Value.ToString();
-                    LastNameTextbox.Text = selectedRows.Cells[3].Value.ToString();
-                    GenderTextbox.Text = selectedRows.Cells[4].Value.ToString();
-                    AgeTextbox.Text = selectedRows.Cells[5].Value.ToString();
-                    EmailTextbox.Text = selectedRows.Cells[6].Value.ToString();
-                } 
+                UsernameTextbox.Text = row.Cells[0].Value.ToString();
+                PasswordTextbox.Text = row.Cells[1].Value.ToString();
+                FirstNameTextbox.Text = row.Cells[2].Value.ToString();
+                LastNameTextbox.Text = row.Cells[3].Value.ToString();
+                GenderTextbox.Text = row.Cells[4].Value.ToString();
+                AgeTextbox.Text = row.Cells[5].Value.ToString();
+                EmailTextbox.Text = row.Cells[6].Value.ToString();
+
             } 
         }
     }

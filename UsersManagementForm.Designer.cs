@@ -276,6 +276,7 @@
             this.UsersDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.UsersDataGridView.Location = new System.Drawing.Point(572, 152);
             this.UsersDataGridView.Name = "UsersDataGridView";
+            this.UsersDataGridView.ReadOnly = true;
             this.UsersDataGridView.RowHeadersWidth = 51;
             this.UsersDataGridView.RowTemplate.Height = 33;
             this.UsersDataGridView.Size = new System.Drawing.Size(568, 537);
