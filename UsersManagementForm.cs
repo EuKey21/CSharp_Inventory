@@ -13,6 +13,9 @@ namespace CSharp_Inventory
 {
     public partial class UsersManagementForm : Form
     {
+        const string table = "UserTable";
+        const string primaryKeyLabel = "Username";
+
         public UsersManagementForm()
         {
             InitializeComponent();
@@ -37,6 +40,8 @@ namespace CSharp_Inventory
                 person.Email = EmailTextbox.Text;
 
                 Config.Connection.AddPerson(person);
+                MessageBox.Show("User Successfully Added");
+                PopulateUserTable();
             }
         }
 
@@ -47,7 +52,7 @@ namespace CSharp_Inventory
                 MessageBox.Show("Please fill all boxes");
                 return false;
             }
-            else if (Config.Connection.IsDataUnique("UserTable", "username", UsernameTextbox.Text) == false)
+            else if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == false)
             {
                 MessageBox.Show("Username already existed");
                 return false;
@@ -118,10 +123,66 @@ namespace CSharp_Inventory
                 {
                     MessageBox.Show("Invalid Email address");
                     return false;
-                } 
+                }
             }
 
             return true;
+        }
+
+        private void PopulateUserTable()
+        {
+            UsersDataGridView.DataSource = Config.Connection.PopulatePersonTable();
+        }
+
+        private void UsersManagementForm_Load(object sender, EventArgs e)
+        {
+            PopulateUserTable();
+        }
+
+        private void ClearLabel_Click(object sender, EventArgs e)
+        {
+            UsernameTextbox.Text = "";
+            PasswordTextbox.Text = "";
+            FirstNameTextbox.Text = "";
+            LastNameTextbox.Text = "";
+            GenderTextbox.Text = "";
+            AgeTextbox.Text = "";
+            EmailTextbox.Text = "";
+        }
+
+        private void DelButton_Click(object sender, EventArgs e)
+        {
+            if (UsernameTextbox.Text.Length == 0)
+            {
+                MessageBox.Show("Please select record to be deleted");
+            }
+            else
+            {
+                Config.Connection.DeleteRecord(table, primaryKeyLabel, UsernameTextbox.Text);
+                MessageBox.Show("User Successfully Deleted");
+                PopulateUserTable();
+            }
+
+        }
+
+        private void UsersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int ind = e.RowIndex;
+                DataGridViewRow selectedRows = UsersDataGridView.Rows[ind];
+
+                if (selectedRows != null)
+                {
+                    UsernameTextbox.Text = selectedRows.Cells[0].Value.ToString();
+                    PasswordTextbox.Text = selectedRows.Cells[1].Value.ToString();
+                    FirstNameTextbox.Text = selectedRows.Cells[2].Value.ToString();
+                    LastNameTextbox.Text = selectedRows.Cells[3].Value.ToString();
+                    GenderTextbox.Text = selectedRows.Cells[4].Value.ToString();
+                    AgeTextbox.Text = selectedRows.Cells[5].Value.ToString();
+                    EmailTextbox.Text = selectedRows.Cells[6].Value.ToString();
+                } 
+            } 
         }
     }
 }

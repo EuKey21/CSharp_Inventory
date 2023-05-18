@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.UsersManagementTopPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ClosingLabel = new System.Windows.Forms.Label();
@@ -52,6 +54,7 @@
             this.GenderTextbox = new System.Windows.Forms.TextBox();
             this.AgeTextbox = new System.Windows.Forms.TextBox();
             this.AgeLabel = new System.Windows.Forms.Label();
+            this.ClearLabel = new System.Windows.Forms.Label();
             this.UsersManagementTopPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UsersDataGridView)).BeginInit();
@@ -159,6 +162,7 @@
             this.DelButton.TabIndex = 4;
             this.DelButton.Text = "DEL";
             this.DelButton.UseVisualStyleBackColor = false;
+            this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
             // EditButton
             // 
@@ -253,14 +257,30 @@
             // UsersDataGridView
             // 
             this.UsersDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.UsersDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.UsersDataGridView.GridColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.RosyBrown;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.UsersDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.UsersDataGridView.Location = new System.Drawing.Point(572, 152);
             this.UsersDataGridView.Name = "UsersDataGridView";
             this.UsersDataGridView.RowHeadersWidth = 51;
             this.UsersDataGridView.RowTemplate.Height = 33;
             this.UsersDataGridView.Size = new System.Drawing.Size(568, 537);
             this.UsersDataGridView.TabIndex = 14;
+            this.UsersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UsersDataGridView_CellContentClick);
             // 
             // HomeButton
             // 
@@ -316,12 +336,26 @@
             this.AgeLabel.TabIndex = 19;
             this.AgeLabel.Text = "Age:";
             // 
+            // ClearLabel
+            // 
+            this.ClearLabel.AutoSize = true;
+            this.ClearLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ClearLabel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ClearLabel.ForeColor = System.Drawing.Color.Crimson;
+            this.ClearLabel.Location = new System.Drawing.Point(275, 666);
+            this.ClearLabel.Name = "ClearLabel";
+            this.ClearLabel.Size = new System.Drawing.Size(63, 23);
+            this.ClearLabel.TabIndex = 20;
+            this.ClearLabel.Text = "Clear";
+            this.ClearLabel.Click += new System.EventHandler(this.ClearLabel_Click);
+            // 
             // UsersManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.Controls.Add(this.ClearLabel);
             this.Controls.Add(this.AgeLabel);
             this.Controls.Add(this.AgeTextbox);
             this.Controls.Add(this.GenderTextbox);
@@ -347,6 +381,7 @@
             this.Name = "UsersManagementForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UsersManagementForm";
+            this.Load += new System.EventHandler(this.UsersManagementForm_Load);
             this.UsersManagementTopPanel.ResumeLayout(false);
             this.UsersManagementTopPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -383,5 +418,6 @@
         private Label AgeLabel;
         private Panel panel1;
         private Label ClosingLabel;
+        private Label ClearLabel;
     }
 }
