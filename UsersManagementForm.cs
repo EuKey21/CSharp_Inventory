@@ -43,7 +43,7 @@ namespace CSharp_Inventory
 
                     Config.Connection.AddPerson(person);
                     MessageBox.Show("User Successfully Added");
-                    PopulateUserTable();
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
                 }
                 else
                 {
@@ -132,14 +132,9 @@ namespace CSharp_Inventory
             return true;
         }
 
-        private void PopulateUserTable()
-        {
-            UsersDataGridView.DataSource = Config.Connection.PopulatePersonTable();
-        }
-
         private void UsersManagementForm_Load(object sender, EventArgs e)
         {
-            PopulateUserTable();   
+            UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
         }
 
         private void DelButton_Click(object sender, EventArgs e)
@@ -152,7 +147,7 @@ namespace CSharp_Inventory
             {
                 Config.Connection.DeleteRecord(table, primaryKeyLabel, UsernameTextbox.Text);
                 MessageBox.Show("User Successfully Deleted");
-                PopulateUserTable();
+                UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
             }
 
         }
@@ -175,19 +170,7 @@ namespace CSharp_Inventory
 
         private void UsersDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            DataGridView grid = sender as DataGridView;
-            string rowIdx = (e.RowIndex + 1).ToString();
-
-            StringFormat centerFormat = new StringFormat()
-            {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
-            Font font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
-
-            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIdx, font, SystemBrushes.ControlText, headerBounds, centerFormat);
+            Logic.PrintRowNumToGridView(sender, e);
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -218,7 +201,7 @@ namespace CSharp_Inventory
 
                     Config.Connection.EditPerson(person);
                     MessageBox.Show("User Successfully Edited");
-                    PopulateUserTable();
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
                 }
                 else
                 {

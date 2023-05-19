@@ -13,11 +13,15 @@ namespace CSharp_Inventory
 
         public void EditPerson(PersonModel model);
 
+        public void AddCustomer(CustomerModel model);
+
+        public void EditCustomer(CustomerModel model);
+
         bool IsDataUnique(string table, string dataLabel, string data);
 
         public List<PersonModel> GetAllPerson();
 
-        public DataTable PopulatePersonTable();
+        public DataTable PopulateTable(string table);
 
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey);
     }

@@ -276,7 +276,7 @@
             this.UsersDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Info;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.RosyBrown;
@@ -298,6 +298,8 @@
             this.UsersDataGridView.RowHeadersWidth = 30;
             this.UsersDataGridView.RowTemplate.Height = 33;
             this.UsersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.UsersDataGridView.ShowCellToolTips = false;
+            this.UsersDataGridView.ShowEditingIcon = false;
             this.UsersDataGridView.Size = new System.Drawing.Size(568, 454);
             this.UsersDataGridView.TabIndex = 14;
             this.UsersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.UsersDataGridView_CellContentClick);

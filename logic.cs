@@ -8,11 +8,21 @@ namespace CSharp_Inventory
 {
     public static class Logic
     {
-        public static bool validatePersonData(PersonModel model, SqlConnector connector)
+        public static void PrintRowNumToGridView(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            bool result = true;
+            DataGridView grid = sender as DataGridView;
+            string rowIdx = (e.RowIndex + 1).ToString();
 
-            return result;
+            StringFormat centerFormat = new StringFormat()
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            Font font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+
+            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
+            e.Graphics.DrawString(rowIdx, font, SystemBrushes.ControlText, headerBounds, centerFormat);
         }
     }
 }

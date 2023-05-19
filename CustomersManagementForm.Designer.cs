@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CustomesManagementTopPanel = new System.Windows.Forms.Panel();
             this.ClosingLabel = new System.Windows.Forms.Label();
             this.InventorySystemLabel = new System.Windows.Forms.Label();
@@ -39,9 +39,9 @@
             this.CustomersDataGridView = new System.Windows.Forms.DataGridView();
             this.IdLabel = new System.Windows.Forms.Label();
             this.CustomersListLabel = new System.Windows.Forms.Label();
-            this.EmailTextbox = new System.Windows.Forms.TextBox();
+            this.PhoneTextbox = new System.Windows.Forms.TextBox();
             this.LastNameTextbox = new System.Windows.Forms.TextBox();
-            this.EmailLabel = new System.Windows.Forms.Label();
+            this.PhonelLabel = new System.Windows.Forms.Label();
             this.LastNameLabel = new System.Windows.Forms.Label();
             this.FirstNameLabel = new System.Windows.Forms.Label();
             this.FirstNameTextbox = new System.Windows.Forms.TextBox();
@@ -123,35 +123,35 @@
             this.CustomersDataGridView.AllowUserToResizeColumns = false;
             this.CustomersDataGridView.AllowUserToResizeRows = false;
             this.CustomersDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CustomersDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CustomersDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.CustomersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.RosyBrown;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.CustomersDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.RosyBrown;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.CustomersDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.CustomersDataGridView.GridColor = System.Drawing.SystemColors.Control;
             this.CustomersDataGridView.Location = new System.Drawing.Point(572, 235);
             this.CustomersDataGridView.Name = "CustomersDataGridView";
             this.CustomersDataGridView.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CustomersDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CustomersDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.CustomersDataGridView.RowHeadersWidth = 51;
             this.CustomersDataGridView.RowTemplate.Height = 33;
             this.CustomersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -159,6 +159,8 @@
             this.CustomersDataGridView.ShowEditingIcon = false;
             this.CustomersDataGridView.Size = new System.Drawing.Size(568, 454);
             this.CustomersDataGridView.TabIndex = 14;
+            this.CustomersDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CustomersDataGridView_CellContentClick);
+            this.CustomersDataGridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.CustomersDataGridView_RowPostPaint);
             // 
             // IdLabel
             // 
@@ -182,13 +184,13 @@
             this.CustomersListLabel.TabIndex = 18;
             this.CustomersListLabel.Text = "List of Customers";
             // 
-            // EmailTextbox
+            // PhoneTextbox
             // 
-            this.EmailTextbox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.EmailTextbox.Location = new System.Drawing.Point(257, 389);
-            this.EmailTextbox.Name = "EmailTextbox";
-            this.EmailTextbox.Size = new System.Drawing.Size(218, 31);
-            this.EmailTextbox.TabIndex = 25;
+            this.PhoneTextbox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.PhoneTextbox.Location = new System.Drawing.Point(257, 389);
+            this.PhoneTextbox.Name = "PhoneTextbox";
+            this.PhoneTextbox.Size = new System.Drawing.Size(218, 31);
+            this.PhoneTextbox.TabIndex = 25;
             // 
             // LastNameTextbox
             // 
@@ -198,16 +200,16 @@
             this.LastNameTextbox.Size = new System.Drawing.Size(218, 31);
             this.LastNameTextbox.TabIndex = 24;
             // 
-            // EmailLabel
+            // PhonelLabel
             // 
-            this.EmailLabel.AutoSize = true;
-            this.EmailLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.EmailLabel.ForeColor = System.Drawing.Color.Chocolate;
-            this.EmailLabel.Location = new System.Drawing.Point(136, 389);
-            this.EmailLabel.Name = "EmailLabel";
-            this.EmailLabel.Size = new System.Drawing.Size(71, 28);
-            this.EmailLabel.TabIndex = 22;
-            this.EmailLabel.Text = "Email: ";
+            this.PhonelLabel.AutoSize = true;
+            this.PhonelLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.PhonelLabel.ForeColor = System.Drawing.Color.Chocolate;
+            this.PhonelLabel.Location = new System.Drawing.Point(136, 389);
+            this.PhonelLabel.Name = "PhonelLabel";
+            this.PhonelLabel.Size = new System.Drawing.Size(82, 28);
+            this.PhonelLabel.TabIndex = 22;
+            this.PhonelLabel.Text = "Phone: ";
             // 
             // LastNameLabel
             // 
@@ -267,6 +269,7 @@
             this.EditButton.TabIndex = 30;
             this.EditButton.Text = "EDIT";
             this.EditButton.UseVisualStyleBackColor = false;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // DelButton
             // 
@@ -281,6 +284,7 @@
             this.DelButton.TabIndex = 29;
             this.DelButton.Text = "DEL";
             this.DelButton.UseVisualStyleBackColor = false;
+            this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
             // AddButton
             // 
@@ -295,9 +299,11 @@
             this.AddButton.TabIndex = 28;
             this.AddButton.Text = "ADD";
             this.AddButton.UseVisualStyleBackColor = false;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // IdTextbox
             // 
+            this.IdTextbox.Enabled = false;
             this.IdTextbox.Location = new System.Drawing.Point(257, 235);
             this.IdTextbox.Name = "IdTextbox";
             this.IdTextbox.ReadOnly = true;
@@ -315,9 +321,9 @@
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.DelButton);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.EmailTextbox);
+            this.Controls.Add(this.PhoneTextbox);
             this.Controls.Add(this.LastNameTextbox);
-            this.Controls.Add(this.EmailLabel);
+            this.Controls.Add(this.PhonelLabel);
             this.Controls.Add(this.LastNameLabel);
             this.Controls.Add(this.FirstNameLabel);
             this.Controls.Add(this.FirstNameTextbox);
@@ -329,6 +335,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CustomersManagementForm";
             this.Text = "CustomersManagementForm";
+            this.Load += new System.EventHandler(this.CustomersManagementForm_Load);
             this.CustomesManagementTopPanel.ResumeLayout(false);
             this.CustomesManagementTopPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustomersDataGridView)).EndInit();
@@ -347,9 +354,9 @@
         private Label IdLabel;
         private Label CustomersListLabel;
         private Label ClosingLabel;
-        private TextBox EmailTextbox;
+        private TextBox PhoneTextbox;
         private TextBox LastNameTextbox;
-        private Label EmailLabel;
+        private Label PhonelLabel;
         private Label LastNameLabel;
         private Label FirstNameLabel;
         private TextBox FirstNameTextbox;

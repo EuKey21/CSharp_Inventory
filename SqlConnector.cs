@@ -18,8 +18,8 @@ namespace CSharp_Inventory
 
         public void AddPerson(PersonModel model)
         {
-            string query = "INSERT INTO ";
-            query += "UserTable (Username, Password, FirstName, LastName, Gender, Age, Email) ";
+            string query = "INSERT INTO UserTable ";
+            query += "(Username, Password, FirstName, LastName, Gender, Age, Email) ";
             query += "VALUES (@Username, @Password, @FirstName, @LastName, @Gender, @Age, @Email)";
 
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -59,6 +59,48 @@ namespace CSharp_Inventory
                     cmd.Parameters.AddWithValue("@Gender", model.Gender);
                     cmd.Parameters.AddWithValue("@Age", model.Age);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddCustomer(CustomerModel model)
+        {
+            string query = "INSERT INTO CustomerTable ";
+            query += "(Firstname, Lastname, Phone) ";
+            query += "VALUES (@FirstName, @LastName, @Phone)";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    // Id is auto incremented in SQL by setting Identity to true.
+                    cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@Phone", model.Phone);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EditCustomer(CustomerModel model)
+        {
+            string query = "UPDATE CustomerTable SET ";
+            query += "FirstName = @FirstName, LastName = @LastName, Phone = @Phone ";
+            query += "WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@Phone", model.Phone);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -143,10 +185,10 @@ namespace CSharp_Inventory
             return list;
         }
 
-        public DataTable PopulatePersonTable()
+        public DataTable PopulateTable(string table)
         {
             DataTable dt = new DataTable();
-            string query = " SELECT * FROM UserTable";
+            string query = "SELECT * FROM " + table;
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {

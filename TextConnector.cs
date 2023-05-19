@@ -9,12 +9,22 @@ namespace CSharp_Inventory
 {
     public class TextConnector : IDataConnection
     {
+        public void AddCustomer(CustomerModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddPerson(PersonModel model)
         {
             throw new NotImplementedException();
         }
 
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCustomer(CustomerModel model)
         {
             throw new NotImplementedException();
         }
@@ -34,7 +44,7 @@ namespace CSharp_Inventory
             throw new NotImplementedException();
         }
 
-        public DataTable PopulatePersonTable()
+        public DataTable PopulateTable(string table)
         {
             throw new NotImplementedException();
         }
