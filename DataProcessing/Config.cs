@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_Inventory
+namespace CSharp_Inventory.DataProcessing
 {
     public static class Config
     {
@@ -21,7 +21,7 @@ namespace CSharp_Inventory
             }
             else if (db == DatabaseType.TextFile)
             {
-                TextConnector text= new TextConnector();
+                TextConnector text = new TextConnector();
                 Connection = text;
             }
         }

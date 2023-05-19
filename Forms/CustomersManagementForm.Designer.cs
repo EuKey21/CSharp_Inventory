@@ -306,7 +306,6 @@
             this.IdTextbox.Enabled = false;
             this.IdTextbox.Location = new System.Drawing.Point(257, 235);
             this.IdTextbox.Name = "IdTextbox";
-            this.IdTextbox.ReadOnly = true;
             this.IdTextbox.Size = new System.Drawing.Size(218, 31);
             this.IdTextbox.TabIndex = 32;
             // 

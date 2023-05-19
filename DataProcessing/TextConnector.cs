@@ -4,8 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSharp_Inventory.Models;
 
-namespace CSharp_Inventory
+namespace CSharp_Inventory.DataProcessing
 {
     public class TextConnector : IDataConnection
     {

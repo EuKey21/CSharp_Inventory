@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_Inventory
+namespace CSharp_Inventory.DataProcessing
 {
-    public static class Logic
+    public static class SharedMethods
     {
         public static void PrintRowNumToGridView(object sender, DataGridViewRowPostPaintEventArgs e)
         {

@@ -8,8 +8,9 @@ using System.Data;
 using System.Collections;
 using System.Reflection;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using CSharp_Inventory.Models;
 
-namespace CSharp_Inventory
+namespace CSharp_Inventory.DataProcessing
 {
     public class SqlConnector : IDataConnection
     {

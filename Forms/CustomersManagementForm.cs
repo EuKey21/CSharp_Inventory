@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CSharp_Inventory.DataProcessing;
+using CSharp_Inventory.Models;
 
 namespace CSharp_Inventory
 {
@@ -111,7 +113,7 @@ namespace CSharp_Inventory
 
         private void CustomersDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            Logic.PrintRowNumToGridView(sender, e);
+            SharedMethods.PrintRowNumToGridView(sender, e);
         }
 
         private void EditButton_Click(object sender, EventArgs e)
