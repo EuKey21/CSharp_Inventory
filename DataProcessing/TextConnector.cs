@@ -20,6 +20,11 @@ namespace CSharp_Inventory.DataProcessing
             throw new NotImplementedException();
         }
 
+        public void AddItem(ItemModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddPerson(PersonModel model)
         {
             throw new NotImplementedException();
@@ -40,7 +45,17 @@ namespace CSharp_Inventory.DataProcessing
             throw new NotImplementedException();
         }
 
+        public void EditItem(ItemModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void EditPerson(PersonModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetAllCategory()
         {
             throw new NotImplementedException();
         }

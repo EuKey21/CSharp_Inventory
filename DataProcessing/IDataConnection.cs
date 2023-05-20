@@ -22,9 +22,15 @@ namespace CSharp_Inventory.DataProcessing
 
         public void EditCategory(CategoryModel model);
 
+        public void AddItem(ItemModel model);
+
+        public void EditItem(ItemModel model);
+
         bool IsDataUnique(string table, string dataLabel, string data);
 
         public List<PersonModel> GetAllPerson();
+
+        public List<string> GetAllCategory();
 
         public DataTable PopulateTable(string table);
 

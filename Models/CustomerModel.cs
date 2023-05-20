@@ -10,10 +10,12 @@ namespace CSharp_Inventory.Models
     {
         public int Id { get; set; }
 
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         public int Phone { get; set; }
+
+        public string GetFullName => $"{FirstName} {LastName}";
     }
 }

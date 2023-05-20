@@ -16,7 +16,6 @@ namespace CSharp_Inventory.DataProcessing
     {
         private const string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\fexke\Documents\InventoryDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-
         public void AddPerson(PersonModel model)
         {
             string query = "INSERT INTO UserTable ";
@@ -145,6 +144,52 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
+        public void AddItem(ItemModel model)
+        {
+            string query = "INSERT INTO ItemTable ";
+            query += "(ItemName, Quantity, Price, Category, Description) ";
+            query += "VALUES (@ItemName, @Quantity, @Price, @Category, @Description)";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    // Id is auto incremented in SQL by setting Identity to true
+                    cmd.Parameters.AddWithValue("@ItemName", model.ItemName);
+                    cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
+                    cmd.Parameters.AddWithValue("@Price", model.Price);
+                    cmd.Parameters.AddWithValue("@Category", model.Category);
+                    cmd.Parameters.AddWithValue("@Description", model.Description);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EditItem(ItemModel model)
+        {
+            string query = "UPDATE ItemTable SET ";
+            query += "ItemName = @ItemName, Quantity = @Quantity, Price = @Price, Category = @Category, Description = @Description ";
+            query += "WHERE id = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@ItemName", model.ItemName);
+                    cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
+                    cmd.Parameters.AddWithValue("@Price", model.Price);
+                    cmd.Parameters.AddWithValue("@Category", model.Category);
+                    cmd.Parameters.AddWithValue("@Description", model.Description);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;
@@ -222,6 +267,33 @@ namespace CSharp_Inventory.DataProcessing
             return list;
         }
 
+        public List<string> GetAllCategory()
+        {
+            List<string> list = new List<string>();
+
+            string query = "SELECT CategoryName FROM ItemCategoryTable";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                list.Add(dr["CategoryName"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
         public DataTable PopulateTable(string table)
         {
             DataTable dt = new DataTable();

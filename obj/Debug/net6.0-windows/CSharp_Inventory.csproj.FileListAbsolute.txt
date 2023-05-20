@@ -27,3 +27,4 @@ D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.cspr
 D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.CustomersManagementForm.resources
 D:\codingProject\CSharp_Inventory\bin\Debug\net6.0-windows\CSharp_Inventory.dll.config
 D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.ItemCategoriesManagementForm.resources
+D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.ItemManagementForm.resources

@@ -15,7 +15,7 @@ namespace CSharp_inventory
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Config.InitializeConnection(DatabaseType.Sql);
-            Application.Run(new ItemCategoriesManagementForm());
+            Application.Run(new ItemManagementForm());
         }
     }
 }

@@ -63,7 +63,6 @@ namespace CSharp_Inventory
             return true;
         }
 
-
         private void AddButton_Click(object sender, EventArgs e)
         {
             if(ValidateForm() == true)

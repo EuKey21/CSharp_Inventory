@@ -126,6 +126,7 @@
             this.UsernameTextbox.Name = "UsernameTextbox";
             this.UsernameTextbox.Size = new System.Drawing.Size(218, 31);
             this.UsernameTextbox.TabIndex = 1;
+            this.UsernameTextbox.TextChanged += new System.EventHandler(this.UsernameTextbox_TextChanged);
             // 
             // label1
             // 
@@ -137,6 +138,7 @@
             this.label1.Size = new System.Drawing.Size(115, 28);
             this.label1.TabIndex = 2;
             this.label1.Text = "Username: ";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // AddButton
             // 
@@ -193,6 +195,7 @@
             this.PasswordLabel.Size = new System.Drawing.Size(108, 28);
             this.PasswordLabel.TabIndex = 6;
             this.PasswordLabel.Text = "Password: ";
+            this.PasswordLabel.Click += new System.EventHandler(this.PasswordLabel_Click);
             // 
             // FirstNameLabel
             // 
@@ -204,6 +207,7 @@
             this.FirstNameLabel.Size = new System.Drawing.Size(121, 28);
             this.FirstNameLabel.TabIndex = 7;
             this.FirstNameLabel.Text = "First Name: ";
+            this.FirstNameLabel.Click += new System.EventHandler(this.FirstNameLabel_Click);
             // 
             // LastNameLabel
             // 
@@ -215,6 +219,7 @@
             this.LastNameLabel.Size = new System.Drawing.Size(119, 28);
             this.LastNameLabel.TabIndex = 8;
             this.LastNameLabel.Text = "Last Name: ";
+            this.LastNameLabel.Click += new System.EventHandler(this.LastNameLabel_Click);
             // 
             // EmailLabel
             // 
@@ -234,6 +239,7 @@
             this.PasswordTextbox.Name = "PasswordTextbox";
             this.PasswordTextbox.Size = new System.Drawing.Size(218, 31);
             this.PasswordTextbox.TabIndex = 10;
+            this.PasswordTextbox.TextChanged += new System.EventHandler(this.PasswordTextbox_TextChanged);
             // 
             // FirstNameTextbox
             // 
@@ -242,6 +248,7 @@
             this.FirstNameTextbox.Name = "FirstNameTextbox";
             this.FirstNameTextbox.Size = new System.Drawing.Size(218, 31);
             this.FirstNameTextbox.TabIndex = 11;
+            this.FirstNameTextbox.TextChanged += new System.EventHandler(this.FirstNameTextbox_TextChanged);
             // 
             // LastNameTextbox
             // 
@@ -250,6 +257,7 @@
             this.LastNameTextbox.Name = "LastNameTextbox";
             this.LastNameTextbox.Size = new System.Drawing.Size(218, 31);
             this.LastNameTextbox.TabIndex = 12;
+            this.LastNameTextbox.TextChanged += new System.EventHandler(this.LastNameTextbox_TextChanged);
             // 
             // EmailTextbox
             // 
@@ -266,6 +274,7 @@
             this.UsersDataGridView.AllowUserToResizeColumns = false;
             this.UsersDataGridView.AllowUserToResizeRows = false;
             this.UsersDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.UsersDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -331,6 +340,7 @@
             this.GenderLabel.Size = new System.Drawing.Size(91, 28);
             this.GenderLabel.TabIndex = 16;
             this.GenderLabel.Text = "Gender: ";
+            this.GenderLabel.Click += new System.EventHandler(this.GenderLabel_Click);
             // 
             // GenderTextbox
             // 
@@ -339,6 +349,7 @@
             this.GenderTextbox.Name = "GenderTextbox";
             this.GenderTextbox.Size = new System.Drawing.Size(218, 31);
             this.GenderTextbox.TabIndex = 17;
+            this.GenderTextbox.TextChanged += new System.EventHandler(this.GenderTextbox_TextChanged);
             // 
             // AgeTextbox
             // 
