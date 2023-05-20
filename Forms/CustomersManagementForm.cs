@@ -29,10 +29,10 @@ namespace CSharp_Inventory
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            IdTextbox.Text = "";
-            FirstNameTextbox.Text = "";
-            LastNameTextbox.Text = "";
-            PhoneTextbox.Text = "";
+            IdTextbox.Clear();
+            FirstNameTextbox.Clear();
+            LastNameTextbox.Clear();
+            PhoneTextbox.Clear();
         }
 
         private bool ValidateForm()

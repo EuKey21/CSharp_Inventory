@@ -113,7 +113,7 @@
             this.ManageUserLabel.BackColor = System.Drawing.Color.LemonChiffon;
             this.ManageUserLabel.Font = new System.Drawing.Font("Century Gothic", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ManageUserLabel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.ManageUserLabel.Location = new System.Drawing.Point(399, 28);
+            this.ManageUserLabel.Location = new System.Drawing.Point(420, 55);
             this.ManageUserLabel.Name = "ManageUserLabel";
             this.ManageUserLabel.Size = new System.Drawing.Size(442, 70);
             this.ManageUserLabel.TabIndex = 0;

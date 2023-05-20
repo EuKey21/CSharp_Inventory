@@ -18,6 +18,10 @@ namespace CSharp_Inventory.DataProcessing
 
         public void EditCustomer(CustomerModel model);
 
+        public void AddCategory(CategoryModel model);
+
+        public void EditCategory(CategoryModel model);
+
         bool IsDataUnique(string table, string dataLabel, string data);
 
         public List<PersonModel> GetAllPerson();

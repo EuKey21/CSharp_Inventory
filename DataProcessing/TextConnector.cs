@@ -10,6 +10,11 @@ namespace CSharp_Inventory.DataProcessing
 {
     public class TextConnector : IDataConnection
     {
+        public void AddCategory(CategoryModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddCustomer(CustomerModel model)
         {
             throw new NotImplementedException();
@@ -21,6 +26,11 @@ namespace CSharp_Inventory.DataProcessing
         }
 
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCategory(CategoryModel model)
         {
             throw new NotImplementedException();
         }

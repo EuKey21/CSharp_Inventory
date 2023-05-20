@@ -23,9 +23,9 @@ namespace CSharp_Inventory.DataProcessing
             query += "(Username, Password, FirstName, LastName, Gender, Age, Email) ";
             query += "VALUES (@Username, @Password, @FirstName, @LastName, @Gender, @Age, @Email)";
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@Username", model.UserName);
                     cmd.Parameters.AddWithValue("@Password", model.Password);
@@ -35,7 +35,7 @@ namespace CSharp_Inventory.DataProcessing
                     cmd.Parameters.AddWithValue("@Age", model.Age);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
 
-                    conn.Open();
+                    connection.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -49,9 +49,9 @@ namespace CSharp_Inventory.DataProcessing
             query += "WHERE Username = @Username";
 
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@Username", model.UserName);
                     cmd.Parameters.AddWithValue("@Password", model.Password);
@@ -61,7 +61,7 @@ namespace CSharp_Inventory.DataProcessing
                     cmd.Parameters.AddWithValue("@Age", model.Age);
                     cmd.Parameters.AddWithValue("@Email", model.Email);
 
-                    conn.Open();
+                    connection.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -73,16 +73,16 @@ namespace CSharp_Inventory.DataProcessing
             query += "(Firstname, Lastname, Phone) ";
             query += "VALUES (@FirstName, @LastName, @Phone)";
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     // Id is auto incremented in SQL by setting Identity to true.
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Phone", model.Phone);
 
-                    conn.Open();
+                    connection.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -94,16 +94,52 @@ namespace CSharp_Inventory.DataProcessing
             query += "FirstName = @FirstName, LastName = @LastName, Phone = @Phone ";
             query += "WHERE Id = @Id";
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@Phone", model.Phone);
 
-                    conn.Open();
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddCategory(CategoryModel model)
+        {
+            string query = "INSERT INTO ItemCategoryTable ";
+            query += "(CategoryName) VALUES (@CategoryName)";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    // Id is auto incremented in SQL by setting Identity to true
+                    cmd.Parameters.AddWithValue("@CategoryName", model.CategoryName);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EditCategory(CategoryModel model)
+        {
+            string query = "UPDATE ItemCategoryTable SET ";
+            query += "CategoryName = @CategoryName WHERE Id = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@CategoryName", model.CategoryName);
+
+                    connection.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -113,13 +149,13 @@ namespace CSharp_Inventory.DataProcessing
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@" + primaryKeyLabel + "", primaryKey);
 
-                    conn.Open();
+                    connection.Open();
 
                     cmd.ExecuteNonQuery();
                 }
@@ -130,13 +166,13 @@ namespace CSharp_Inventory.DataProcessing
         {
             string query = "SELECT " + dataLabel + " FROM " + table + " WHERE " + dataLabel + " = @" + dataLabel;
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@" + dataLabel + "", data);
 
-                    conn.Open();
+                    connection.Open();
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -156,11 +192,11 @@ namespace CSharp_Inventory.DataProcessing
             List<PersonModel> list = new List<PersonModel>();
             string query = " SELECT * FROM UserTable";
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                conn.Open();
+                connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -191,11 +227,11 @@ namespace CSharp_Inventory.DataProcessing
             DataTable dt = new DataTable();
             string query = "SELECT * FROM " + table;
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connStr))
             {
-                conn.Open();
+                connection.Open();
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {

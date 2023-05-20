@@ -186,13 +186,13 @@ namespace CSharp_Inventory
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            UsernameTextbox.Text = "";
-            PasswordTextbox.Text = "";
-            FirstNameTextbox.Text = "";
-            LastNameTextbox.Text = "";
-            GenderTextbox.Text = "";
-            AgeTextbox.Text = "";
-            EmailTextbox.Text = "";
+            UsernameTextbox.Clear();
+            PasswordTextbox.Clear();
+            FirstNameTextbox.Clear();
+            LastNameTextbox.Clear();
+            GenderTextbox.Clear();
+            AgeTextbox.Clear();
+            EmailTextbox.Clear();
         }
 
         private void EditButton_Click(object sender, EventArgs e)
