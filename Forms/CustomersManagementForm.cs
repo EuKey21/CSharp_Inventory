@@ -14,8 +14,8 @@ namespace CSharp_Inventory
 {
     public partial class CustomersManagementForm : Form
     {
-        const string table = "CustomerTable";
-        const string primaryKeyLabel = "Id";
+        const string TABLE = "CustomerTable";
+        const string PRIMARY_KEY_LABEL = "Id";
 
         public CustomersManagementForm()
         {
@@ -74,7 +74,7 @@ namespace CSharp_Inventory
 
                 Config.Connection.AddCustomer(customer);
                 MessageBox.Show("Customers Successfully Added");
-                CustomersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                CustomersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
@@ -86,15 +86,15 @@ namespace CSharp_Inventory
             }
             else
             {
-                Config.Connection.DeleteRecord(table, primaryKeyLabel, IdTextbox.Text);
+                Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, IdTextbox.Text);
                 MessageBox.Show("Customer Successfully Deleted");
-                CustomersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                CustomersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
         private void CustomersManagementForm_Load(object sender, EventArgs e)
         {
-            CustomersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+            CustomersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
         }
 
         private void CustomersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -117,7 +117,7 @@ namespace CSharp_Inventory
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            if (ValidateForm() == true)
+            if (ValidateForm() == true && IdTextbox.Text.Length != 0)
             {
                 CustomerModel customer = new CustomerModel();
                 customer.Id = int.Parse(IdTextbox.Text);
@@ -127,8 +127,10 @@ namespace CSharp_Inventory
 
                 Config.Connection.EditCustomer(customer);
                 MessageBox.Show("Customer Successfully Editted");
-                CustomersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                CustomersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
+
+
     }
 }

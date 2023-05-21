@@ -26,11 +26,15 @@ namespace CSharp_Inventory.DataProcessing
 
         public void EditItem(ItemModel model);
 
+        public void AddSupplier(SupplierModel model);
+
+        public void EditSupplier(SupplierModel model);
+
         bool IsDataUnique(string table, string dataLabel, string data);
 
         public List<PersonModel> GetAllPerson();
 
-        public List<string> GetAllCategory();
+        public List<string> GetAllColmnValue(string table, string columnName);
 
         public DataTable PopulateTable(string table);
 

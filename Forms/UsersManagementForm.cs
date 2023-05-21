@@ -15,8 +15,8 @@ namespace CSharp_Inventory
 {
     public partial class UsersManagementForm : Form
     {
-        const string table = "UserTable";
-        const string primaryKeyLabel = "Username";
+        const string TABLE = "UserTable";
+        const string PRIMARY_KEY_LABEL = "Username";
 
         public UsersManagementForm()
         {
@@ -32,7 +32,7 @@ namespace CSharp_Inventory
         {
             if(ValidateForm() == true)
             {
-                if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == true)
+                if (Config.Connection.IsDataUnique(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text) == true)
                 {
                     PersonModel person = new PersonModel();
                     person.UserName = UsernameTextbox.Text;
@@ -45,7 +45,7 @@ namespace CSharp_Inventory
 
                     Config.Connection.AddPerson(person);
                     MessageBox.Show("User Successfully Added");
-                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace CSharp_Inventory
 
         private void UsersManagementForm_Load(object sender, EventArgs e)
         {
-            UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+            UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
         }
 
         private void DelButton_Click(object sender, EventArgs e)
@@ -148,11 +148,11 @@ namespace CSharp_Inventory
             else
             {
                 // validate if record exists
-                if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == false)
+                if (Config.Connection.IsDataUnique(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text) == false)
                 {
-                    Config.Connection.DeleteRecord(table, primaryKeyLabel, UsernameTextbox.Text);
+                    Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text);
                     MessageBox.Show("User Successfully Deleted");
-                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
                 }
                 else
                 {
@@ -200,7 +200,7 @@ namespace CSharp_Inventory
             if (ValidateForm() == true)
             {
                 // validate if record exists
-                if (Config.Connection.IsDataUnique(table, primaryKeyLabel, UsernameTextbox.Text) == false)
+                if (Config.Connection.IsDataUnique(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text) == false)
                 {
                     PersonModel person = new PersonModel();
                     person.UserName = UsernameTextbox.Text;
@@ -213,7 +213,7 @@ namespace CSharp_Inventory
 
                     Config.Connection.EditPerson(person);
                     MessageBox.Show("User Successfully Edited");
-                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
                 }
                 else
                 {

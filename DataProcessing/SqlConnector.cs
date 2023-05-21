@@ -190,6 +190,46 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
+        public void AddSupplier(SupplierModel model)
+        {
+            string query = "INSERT INTO SupplierTable ";
+            query += "(SupplierName, Phone) ";
+            query += "VALUES (@SupplierName, @Phone)";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    // Id is auto incremented in SQL by setting Identity to true.
+                    cmd.Parameters.AddWithValue("@SupplierName", model.SupplierName);
+                    cmd.Parameters.AddWithValue("@Phone", model.Phone);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void EditSupplier(SupplierModel model)
+        {
+            string query = "UPDATE SupplierTable SET ";
+            query += "SupplierName = @SupplierName, Phone = @Phone ";
+            query += "WHERE Id = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@SupplierName", model.SupplierName);
+                    cmd.Parameters.AddWithValue("@Phone", model.Phone);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;
@@ -267,11 +307,11 @@ namespace CSharp_Inventory.DataProcessing
             return list;
         }
 
-        public List<string> GetAllCategory()
+        public List<string> GetAllColmnValue(string table, string columnName)
         {
             List<string> list = new List<string>();
 
-            string query = "SELECT CategoryName FROM ItemCategoryTable";
+            string query = "SELECT " + columnName + " FROM " + table;
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -285,7 +325,7 @@ namespace CSharp_Inventory.DataProcessing
                         {
                             while (dr.Read())
                             {
-                                list.Add(dr["CategoryName"].ToString());
+                                list.Add(dr[columnName].ToString());
                             }
                         }
                     }
@@ -294,6 +334,7 @@ namespace CSharp_Inventory.DataProcessing
 
             return list;
         }
+
         public DataTable PopulateTable(string table)
         {
             DataTable dt = new DataTable();
@@ -314,5 +355,6 @@ namespace CSharp_Inventory.DataProcessing
 
             return dt;
         }
+
     }
 }

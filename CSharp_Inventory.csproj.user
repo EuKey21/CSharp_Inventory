@@ -13,7 +13,10 @@
     <Compile Update="Forms\ItemCategoriesManagementForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ItemManagementForm.cs">
+    <Compile Update="Forms\ItemManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SuppliersManagementForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

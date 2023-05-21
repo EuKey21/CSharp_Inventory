@@ -156,6 +156,7 @@
             this.CategoriesDataGridView.AllowUserToDeleteRows = false;
             this.CategoriesDataGridView.AllowUserToResizeColumns = false;
             this.CategoriesDataGridView.AllowUserToResizeRows = false;
+            this.CategoriesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CategoriesDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;

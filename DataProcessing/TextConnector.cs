@@ -30,6 +30,11 @@ namespace CSharp_Inventory.DataProcessing
             throw new NotImplementedException();
         }
 
+        public void AddSupplier(SupplierModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
         {
             throw new NotImplementedException();
@@ -55,7 +60,12 @@ namespace CSharp_Inventory.DataProcessing
             throw new NotImplementedException();
         }
 
-        public List<string> GetAllCategory()
+        public void EditSupplier(SupplierModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetAllColmnValue(string table, string columnName)
         {
             throw new NotImplementedException();
         }

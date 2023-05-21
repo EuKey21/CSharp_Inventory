@@ -273,6 +273,7 @@
             this.UsersDataGridView.AllowUserToDeleteRows = false;
             this.UsersDataGridView.AllowUserToResizeColumns = false;
             this.UsersDataGridView.AllowUserToResizeRows = false;
+            this.UsersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.UsersDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.UsersDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;

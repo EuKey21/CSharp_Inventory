@@ -122,6 +122,7 @@
             this.CustomersDataGridView.AllowUserToDeleteRows = false;
             this.CustomersDataGridView.AllowUserToResizeColumns = false;
             this.CustomersDataGridView.AllowUserToResizeRows = false;
+            this.CustomersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CustomersDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.CustomersDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -142,7 +143,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.CustomersDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.CustomersDataGridView.GridColor = System.Drawing.SystemColors.Control;
-            this.CustomersDataGridView.Location = new System.Drawing.Point(572, 235);
+            this.CustomersDataGridView.Location = new System.Drawing.Point(579, 235);
             this.CustomersDataGridView.Name = "CustomersDataGridView";
             this.CustomersDataGridView.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -179,7 +180,7 @@
             this.CustomersListLabel.AutoSize = true;
             this.CustomersListLabel.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.CustomersListLabel.ForeColor = System.Drawing.Color.RosyBrown;
-            this.CustomersListLabel.Location = new System.Drawing.Point(696, 163);
+            this.CustomersListLabel.Location = new System.Drawing.Point(703, 163);
             this.CustomersListLabel.Name = "CustomersListLabel";
             this.CustomersListLabel.Size = new System.Drawing.Size(343, 47);
             this.CustomersListLabel.TabIndex = 18;

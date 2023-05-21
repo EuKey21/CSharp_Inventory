@@ -14,8 +14,8 @@ namespace CSharp_Inventory
 {
     public partial class ItemManagementForm : Form
     {
-        const string table = "ItemTable";
-        const string primaryKeyLabel = "Id";
+        const string TABLE = "ItemTable";
+        const string PRIMARY_KEY_LABEL = "Id";
 
         public ItemManagementForm()
         {
@@ -29,9 +29,9 @@ namespace CSharp_Inventory
 
         private void ItemManagementForm_Load(object sender, EventArgs e)
         {
-            ItemsDataGridView.DataSource = Config.Connection.PopulateTable(table);
+            ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             ItemsDataGridView.Columns["Price"].DefaultCellStyle.Format = "0.00";
-            CategoryComboBox.DataSource = Config.Connection.GetAllCategory();
+            CategoryComboBox.DataSource = Config.Connection.GetAllColmnValue("ItemCategoryTable", "CategoryName");
             
         }
 
@@ -52,21 +52,15 @@ namespace CSharp_Inventory
             }
             else
             {
-                Config.Connection.DeleteRecord(table, primaryKeyLabel, IdTextbox.Text);
+                Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, IdTextbox.Text);
                 MessageBox.Show("Customer Successfully Deleted");
-                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
         private bool ValidateForm()
         {
             if(ItemNameTextbox.Text.Length == 0)
-            {
-                MessageBox.Show("Please fill all boxes");
-                return false;
-            }
-
-            if (QuantityTextbox.Text.Length == 0)
             {
                 MessageBox.Show("Please fill all boxes");
                 return false;
@@ -113,20 +107,20 @@ namespace CSharp_Inventory
             {
                 ItemModel item = new ItemModel();
                 item.ItemName = ItemNameTextbox.Text;
-                item.Quantity = int.Parse(QuantityTextbox.Text);
+                item.Quantity = 0;
                 item.Price = double.Parse(PriceTextbox.Text);
                 item.Category = CategoryComboBox.Text;
                 item.Description = DescriptionRichTextBox.Text;
 
                 Config.Connection.AddItem(item);
                 MessageBox.Show("Item Successfully Added");
-                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            if (ValidateForm() == true)
+            if (ValidateForm() == true && IdTextbox.Text.Length != 0)
             {
                 ItemModel item = new ItemModel();
                 item.Id = int.Parse(IdTextbox.Text);
@@ -138,7 +132,7 @@ namespace CSharp_Inventory
 
                 Config.Connection.EditItem(item);
                 MessageBox.Show("Item Successfully Editted");
-                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
     }

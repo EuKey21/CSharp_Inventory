@@ -14,8 +14,8 @@ namespace CSharp_Inventory
 {
     public partial class ItemCategoriesManagementForm : Form
     {
-        const string table = "ItemCategoryTable";
-        const string primaryKeyLabel = "Id";
+        const string TABLE = "ItemCategoryTable";
+        const string PRIMARY_KEY_LABEL = "Id";
 
         public ItemCategoriesManagementForm()
         {
@@ -40,7 +40,7 @@ namespace CSharp_Inventory
                 MessageBox.Show("Please fill all boxes");
                 return false;
             }
-            else if (Config.Connection.IsDataUnique(table, "CategoryName", CategoryTextbox.Text) == false)
+            else if (Config.Connection.IsDataUnique(TABLE, "CategoryName", CategoryTextbox.Text) == false)
             {
                 MessageBox.Show("Category already exists");
                 return false;
@@ -58,13 +58,13 @@ namespace CSharp_Inventory
 
                 Config.Connection.AddCategory(category);
                 MessageBox.Show("Category Successfully Added");
-                CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            if(ValidateForm() == true)
+            if(ValidateForm() == true && IdTextbox.Text.Length != 0)
             {
                 CategoryModel category = new CategoryModel();
                 category.Id = int.Parse(IdTextbox.Text);
@@ -72,7 +72,7 @@ namespace CSharp_Inventory
 
                 Config.Connection.EditCategory(category);
                 MessageBox.Show("Category Successfully Editted");
-                CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
@@ -84,15 +84,15 @@ namespace CSharp_Inventory
             }
             else
             {
-                Config.Connection.DeleteRecord(table, primaryKeyLabel, IdTextbox.Text);
+                Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, IdTextbox.Text);
                 MessageBox.Show("Category Successfully Deleted");
-                CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(table);
+                CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
 
         private void ItemCategoriesManagementForm_Load(object sender, EventArgs e)
         {
-            CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(table);
+            CategoriesDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
         }
 
         private void CategoriesDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
