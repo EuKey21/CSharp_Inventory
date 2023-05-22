@@ -50,10 +50,14 @@ namespace CSharp_Inventory
             {
                 MessageBox.Show("Please select record to be deleted");
             }
+            else if(int.Parse(QuantityTextbox.Text) != 0)
+            {
+                MessageBox.Show("Item cannot be deleted because quantity is not 0");
+            }
             else
             {
                 Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, IdTextbox.Text);
-                MessageBox.Show("Customer Successfully Deleted");
+                MessageBox.Show("Item Successfully Deleted");
                 ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
             }
         }
