@@ -19,11 +19,6 @@ namespace CSharp_Inventory.DataProcessing
                 SqlConnector sql = new SqlConnector();
                 Connection = sql;
             }
-            else if (db == DatabaseType.TextFile)
-            {
-                TextConnector text = new TextConnector();
-                Connection = text;
-            }
         }
 
         public static string ConnectionString()

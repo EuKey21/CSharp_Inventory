@@ -29,3 +29,4 @@ D:\codingProject\CSharp_Inventory\bin\Debug\net6.0-windows\CSharp_Inventory.dll.
 D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.ItemCategoriesManagementForm.resources
 D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.ItemManagementForm.resources
 D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.SuppliersManagementForm.resources
+D:\codingProject\CSharp_Inventory\obj\Debug\net6.0-windows\CSharp_Inventory.StockManagementForm.resources
