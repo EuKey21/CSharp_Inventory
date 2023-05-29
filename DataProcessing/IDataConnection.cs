@@ -10,34 +10,38 @@ namespace CSharp_Inventory.DataProcessing
 {
     public interface IDataConnection
     {
-        void AddPerson(PersonModel model);
+        void AddPerson(in PersonModel model);
 
-        public void EditPerson(PersonModel model);
+        public void EditPerson(in PersonModel model);
 
-        public void AddCustomer(CustomerModel model);
+        public void AddCustomer(in CustomerModel model);
 
-        public void EditCustomer(CustomerModel model);
+        public void EditCustomer(in CustomerModel model);
 
-        public void AddCategory(CategoryModel model);
+        public void AddCategory(in CategoryModel model);
 
-        public void EditCategory(CategoryModel model);
+        public void EditCategory(in CategoryModel model);
 
-        public void AddItem(ItemModel model);
+        public void AddItem(in ItemModel model);
 
-        public void EditItem(ItemModel model);
+        public void EditItem(in ItemModel model);
 
-        public void AddSupplier(SupplierModel model);
+        public void AddSupplier(in SupplierModel model);
 
-        public void EditSupplier(SupplierModel model);
+        public void EditSupplier(in SupplierModel model);
 
-        bool IsDataUnique(string table, string dataLabel, string data);
+        bool IsDataUnique(in string table, in string dataLabel, in string data);
 
         public List<PersonModel> GetAllPerson();
 
-        public List<string> GetAllColmnValue(string table, string columnName);
+        public List<CategoryModel> GetAllCategory();
 
-        public DataTable PopulateTable(string table);
+        public List<SupplierModel> GetAllSupplier();
 
-        public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey);
+        public List<string> GetAllColmnValue(in string table, in string columnName);
+
+        public DataTable PopulateTable(in string table);
+
+        public void DeleteRecord(in string table, in string primaryKeyLabel, in string primaryKey);
     }
 }

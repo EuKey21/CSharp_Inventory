@@ -14,8 +14,8 @@ namespace CSharp_Inventory
 {
     public partial class ItemManagementForm : Form
     {
-        const string TABLE = "ItemTable";
-        const string PRIMARY_KEY_LABEL = "Id";
+        private readonly List<CategoryModel> categories = Config.Connection.GetAllCategory();
+        private readonly List<SupplierModel> suppliers = Config.Connection.GetAllSupplier();
 
         public ItemManagementForm()
         {
@@ -27,20 +27,36 @@ namespace CSharp_Inventory
             Application.Exit();
         }
 
+        private void SetupComboBoxes()
+        {
+            CategoryNameComboBox.DataSource = null;
+            CategoryNameComboBox.DataSource = categories;
+            CategoryNameComboBox.DisplayMember = Table.ItemCategoryColumn.CategoryName;
+            CategoryNameComboBox.Text = "<select>";
+
+            SupplierNameComboBox.DataSource = null;
+            SupplierNameComboBox.DataSource = suppliers;
+            SupplierNameComboBox.DisplayMember = Table.SupplierColumn.SupplierName;
+            SupplierNameComboBox.Text = "<select>";
+        }
+
         private void ItemManagementForm_Load(object sender, EventArgs e)
         {
-            ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
-            ItemsDataGridView.Columns["Price"].DefaultCellStyle.Format = "0.00";
-            CategoryComboBox.DataSource = Config.Connection.GetAllColmnValue("ItemCategoryTable", "CategoryName");
-            
+            ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
+            ItemsDataGridView.Columns[Table.ItemColumn.UnitPrice].DefaultCellStyle.Format = "0.00";
+
+            SetupComboBoxes();
+
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
             IdTextbox.Clear();
+            CategoryNameComboBox.Text = "<select>";
+            SupplierNameComboBox.Text = "<select>";
             ItemNameTextbox.Clear();
             QuantityTextbox.Clear();
-            PriceTextbox.Clear();
+            UnitPriceTextbox.Clear();
             DescriptionRichTextBox.Clear();
         }
 
@@ -56,9 +72,9 @@ namespace CSharp_Inventory
             }
             else
             {
-                Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, IdTextbox.Text);
+                Config.Connection.DeleteRecord(Table.Item, Table.ItemColumn.Id, IdTextbox.Text);
                 MessageBox.Show("Item Successfully Deleted");
-                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
             }
         }
 
@@ -70,13 +86,19 @@ namespace CSharp_Inventory
                 return false;
             }
 
-            if (PriceTextbox.Text.Length == 0)
+            if(CategoryNameComboBox.Text == "<select>")
             {
                 MessageBox.Show("Please fill all boxes");
                 return false;
             }
 
-            if (CategoryComboBox.Text.Length == 0)
+            if (SupplierNameComboBox.Text == "<select>")
+            {
+                MessageBox.Show("Please fill all boxes");
+                return false;
+            }
+
+            if (UnitPriceTextbox.Text.Length == 0)
             {
                 MessageBox.Show("Please fill all boxes");
                 return false;
@@ -93,10 +115,11 @@ namespace CSharp_Inventory
 
                 IdTextbox.Text = row.Cells[0].Value.ToString();
                 ItemNameTextbox.Text = row.Cells[1].Value.ToString();
-                QuantityTextbox.Text = row.Cells[2].Value.ToString();
-                PriceTextbox.Text = String.Format("{0:0.00}", row.Cells[3].Value);
-                CategoryComboBox.Text = row.Cells[4].Value.ToString();
-                DescriptionRichTextBox.Text = row.Cells[5].Value.ToString();
+                CategoryNameComboBox.Text = row.Cells[2].Value.ToString();
+                SupplierNameComboBox.Text = row.Cells[3].Value.ToString();
+                QuantityTextbox.Text = row.Cells[4].Value.ToString();
+                UnitPriceTextbox.Text = String.Format("{0:0.00}", row.Cells[5].Value);
+                DescriptionRichTextBox.Text = row.Cells[6].Value.ToString();
             }
         }
 
@@ -111,14 +134,15 @@ namespace CSharp_Inventory
             {
                 ItemModel item = new ItemModel();
                 item.ItemName = ItemNameTextbox.Text;
+                item.Category = (CategoryModel)CategoryNameComboBox.SelectedItem;
+                item.Supplier = (SupplierModel)SupplierNameComboBox.SelectedItem;
                 item.Quantity = 0;
-                item.Price = double.Parse(PriceTextbox.Text);
-                item.Category = CategoryComboBox.Text;
+                item.UnitPrice = double.Parse(UnitPriceTextbox.Text);
                 item.Description = DescriptionRichTextBox.Text;
 
                 Config.Connection.AddItem(item);
                 MessageBox.Show("Item Successfully Added");
-                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
             }
         }
 
@@ -129,14 +153,15 @@ namespace CSharp_Inventory
                 ItemModel item = new ItemModel();
                 item.Id = int.Parse(IdTextbox.Text);
                 item.ItemName = ItemNameTextbox.Text;
+                item.Category = (CategoryModel)CategoryNameComboBox.SelectedItem;
+                item.Supplier = (SupplierModel)SupplierNameComboBox.SelectedItem;
                 item.Quantity = int.Parse(QuantityTextbox.Text);
-                item.Price = double.Parse(PriceTextbox.Text);
-                item.Category = CategoryComboBox.Text;
+                item.UnitPrice = double.Parse(UnitPriceTextbox.Text);
                 item.Description = DescriptionRichTextBox.Text;
 
                 Config.Connection.EditItem(item);
                 MessageBox.Show("Item Successfully Editted");
-                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
             }
         }
     }

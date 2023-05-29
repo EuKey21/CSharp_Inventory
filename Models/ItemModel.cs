@@ -12,11 +12,13 @@ namespace CSharp_Inventory.Models
 
         public string? ItemName { get; set; }
 
+        public CategoryModel? Category { get; set; }
+
+        public SupplierModel? Supplier { get; set; }
+
         public int Quantity { get; set; }
 
-        public double Price { get; set; }
-
-        public string? Category { get; set; }
+        public double UnitPrice { get; set; }
 
         public string? Description { get; set; }
     }

@@ -16,10 +16,16 @@ namespace CSharp_Inventory.DataProcessing
     {
         private const string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\fexke\Documents\InventoryDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-        public void AddPerson(PersonModel model)
+        public void AddPerson(in PersonModel model)
         {
-            string query = "INSERT INTO UserTable ";
-            query += "(Username, Password, FirstName, LastName, Gender, Age, Email) ";
+            string query = "INSERT INTO " + Table.User + " (";
+            query += Table.UserColumn.UserName + ", ";
+            query += Table.UserColumn.Password + ", ";
+            query += Table.UserColumn.FirstName + ", ";
+            query += Table.UserColumn.LastName + ", ";
+            query += Table.UserColumn.Gender + ", ";
+            query += Table.UserColumn.Age + ", ";
+            query += Table.UserColumn.Email + ") ";
             query += "VALUES (@Username, @Password, @FirstName, @LastName, @Gender, @Age, @Email)";
 
             using (SqlConnection connection = new SqlConnection(connStr))
@@ -40,12 +46,16 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void EditPerson(PersonModel model)
+        public void EditPerson(in PersonModel model)
         {
-            string query = "UPDATE UserTable SET ";
-            query += "Password = @Password, FirstName = @FirstName, LastName = @LastName, ";
-            query += "Gender = @Gender, Age = @Age, Email = @Email ";
-            query += "WHERE Username = @Username";
+            string query = "UPDATE " + Table.User + " SET ";
+            query += Table.UserColumn.Password + " = @Password, ";
+            query += Table.UserColumn.FirstName + " = @FirstName, ";
+            query += Table.UserColumn.LastName + " = @LastName, ";
+            query += Table.UserColumn.Gender + " = @Gender, ";
+            query += Table.UserColumn.Age + " = @Age, ";
+            query += Table.UserColumn.Email + " = @Email ";
+            query += "WHERE " + Table.UserColumn.UserName + " = @Username";
 
 
             using (SqlConnection connection = new SqlConnection(connStr))
@@ -66,10 +76,12 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void AddCustomer(CustomerModel model)
+        public void AddCustomer(in CustomerModel model)
         {
-            string query = "INSERT INTO CustomerTable ";
-            query += "(Firstname, Lastname, Phone) ";
+            string query = "INSERT INTO " + Table.Customer + " (";
+            query += Table.CustomerColumn.FirstName + ", ";
+            query += Table.CustomerColumn.LastName + ", ";
+            query += Table.CustomerColumn.Phone + ") ";
             query += "VALUES (@FirstName, @LastName, @Phone)";
 
             using (SqlConnection connection = new SqlConnection(connStr))
@@ -87,11 +99,13 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void EditCustomer(CustomerModel model)
+        public void EditCustomer(in CustomerModel model)
         {
-            string query = "UPDATE CustomerTable SET ";
-            query += "FirstName = @FirstName, LastName = @LastName, Phone = @Phone ";
-            query += "WHERE Id = @Id";
+            string query = "UPDATE " + Table.Customer + " SET ";
+            query += Table.CustomerColumn.FirstName + " = @FirstName, ";
+            query += Table.CustomerColumn.LastName + " = @LastName, ";
+            query += Table.CustomerColumn.Phone + " = @Phone ";
+            query += "WHERE " + Table.CustomerColumn.Id + " = @Id";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -108,10 +122,10 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void AddCategory(CategoryModel model)
+        public void AddCategory(in CategoryModel model)
         {
-            string query = "INSERT INTO ItemCategoryTable ";
-            query += "(CategoryName) VALUES (@CategoryName)";
+            string query = "INSERT INTO " + Table.ItemCategory + " (";
+            query += Table.ItemCategoryColumn.CategoryName + ") VALUES (@CategoryName)";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -126,10 +140,11 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void EditCategory(CategoryModel model)
+        public void EditCategory(in CategoryModel model)
         {
-            string query = "UPDATE ItemCategoryTable SET ";
-            query += "CategoryName = @CategoryName WHERE Id = @Id";
+            string query = "UPDATE " + Table.ItemCategory + " SET ";
+            query += Table.ItemCategoryColumn.CategoryName + " = @CategoryName";
+            query += "WHERE " + Table.ItemCategoryColumn.Id + " = @Id";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -144,11 +159,28 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void AddItem(ItemModel model)
+        public void AddItem(in ItemModel model)
         {
-            string query = "INSERT INTO ItemTable ";
-            query += "(ItemName, Quantity, Price, Category, Description) ";
-            query += "VALUES (@ItemName, @Quantity, @Price, @Category, @Description)";
+            string query = "";
+
+            query += "DECLARE @CategoryId INT; ";
+            query += "SET @CategoryId = (SELECT " + Table.ItemCategoryColumn.Id + " ";
+            query += "FROM " + Table.ItemCategory + " ";
+            query += "WHERE " + Table.ItemCategoryColumn.CategoryName + " = @CategoryName); ";
+
+            query += "DECLARE @SupplierId INT; ";
+            query += "SET @SupplierId = (SELECT " + Table.SupplierColumn.Id + " ";
+            query += "FROM " + Table.Supplier + " ";
+            query += "WHERE " + Table.SupplierColumn.SupplierName + " = @SupplierName); ";
+
+            query += "INSERT INTO " + Table.Item + " (";
+            query += Table.ItemColumn.ItemName + ", ";
+            query += Table.ItemColumn.CategoryId + ", ";
+            query += Table.ItemColumn.SupplierId + ", ";
+            query += Table.ItemColumn.Quantity + ", ";
+            query += Table.ItemColumn.UnitPrice + ", ";
+            query += Table.ItemColumn.Description + ") ";
+            query += "VALUES (@ItemName, @CategoryId, @SupplierId, @Quantity, @UnitPrice, @Description)";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -156,9 +188,10 @@ namespace CSharp_Inventory.DataProcessing
                 {
                     // Id is auto incremented in SQL by setting Identity to true
                     cmd.Parameters.AddWithValue("@ItemName", model.ItemName);
+                    cmd.Parameters.AddWithValue("@CategoryName", model.Category.CategoryName);
+                    cmd.Parameters.AddWithValue("@SupplierName", model.Supplier.SupplierName);
                     cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
-                    cmd.Parameters.AddWithValue("@Price", model.Price);
-                    cmd.Parameters.AddWithValue("@Category", model.Category);
+                    cmd.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
                     cmd.Parameters.AddWithValue("@Description", model.Description);
 
                     connection.Open();
@@ -167,11 +200,28 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void EditItem(ItemModel model)
+        public void EditItem(in ItemModel model)
         {
-            string query = "UPDATE ItemTable SET ";
-            query += "ItemName = @ItemName, Quantity = @Quantity, Price = @Price, Category = @Category, Description = @Description ";
-            query += "WHERE id = @Id";
+            string query = "";
+
+            query += "DECLARE @CategoryId INT; ";
+            query += "SET @CategoryId = (SELECT " + Table.ItemCategoryColumn.Id + " ";
+            query += "FROM " + Table.ItemCategory + " ";
+            query += "WHERE " + Table.ItemCategoryColumn.CategoryName + " = @CategoryName); ";
+
+            query += "DECLARE @SupplierId INT; ";
+            query += "SET @SupplierId = (SELECT " + Table.SupplierColumn.Id + " ";
+            query += "FROM " + Table.Supplier + " ";
+            query += "WHERE " + Table.SupplierColumn.SupplierName + " = @SupplierName); ";
+
+            query += "UPDATE " + Table.Item + " SET ";
+            query += Table.ItemColumn.ItemName + " = @ItemName, ";
+            query += Table.ItemColumn.CategoryId + " = @CategoryId, ";
+            query += Table.ItemColumn.SupplierId + " = @SupplierId, ";
+            query += Table.ItemColumn.Quantity + " = @Quantity, ";
+            query += Table.ItemColumn.UnitPrice + " = @UnitPrice, ";
+            query += Table.ItemColumn.Description + " = @Description ";
+            query += "WHERE " + Table.ItemColumn.Id + " = @Id";
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
@@ -179,9 +229,10 @@ namespace CSharp_Inventory.DataProcessing
                 {
                     cmd.Parameters.AddWithValue("@Id", model.Id);
                     cmd.Parameters.AddWithValue("@ItemName", model.ItemName);
+                    cmd.Parameters.AddWithValue("@CategoryName", model.Category.CategoryName);
+                    cmd.Parameters.AddWithValue("@SupplierName", model.Supplier.SupplierName);
                     cmd.Parameters.AddWithValue("@Quantity", model.Quantity);
-                    cmd.Parameters.AddWithValue("@Price", model.Price);
-                    cmd.Parameters.AddWithValue("@Category", model.Category);
+                    cmd.Parameters.AddWithValue("@UnitPrice", model.UnitPrice);
                     cmd.Parameters.AddWithValue("@Description", model.Description);
 
                     connection.Open();
@@ -190,7 +241,7 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void AddSupplier(SupplierModel model)
+        public void AddSupplier(in SupplierModel model)
         {
             string query = "INSERT INTO SupplierTable ";
             query += "(SupplierName, Phone) ";
@@ -210,7 +261,7 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void EditSupplier(SupplierModel model)
+        public void EditSupplier(in SupplierModel model)
         {
             string query = "UPDATE SupplierTable SET ";
             query += "SupplierName = @SupplierName, Phone = @Phone ";
@@ -230,7 +281,7 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public void DeleteRecord(string table, string primaryKeyLabel, string primaryKey)
+        public void DeleteRecord(in string table, in string primaryKeyLabel, in string primaryKey)
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;
 
@@ -247,7 +298,7 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
-        public bool IsDataUnique(string table, string dataLabel, string data)
+        public bool IsDataUnique(in string table, in string dataLabel, in string data)
         {
             string query = "SELECT " + dataLabel + " FROM " + table + " WHERE " + dataLabel + " = @" + dataLabel;
 
@@ -307,7 +358,70 @@ namespace CSharp_Inventory.DataProcessing
             return list;
         }
 
-        public List<string> GetAllColmnValue(string table, string columnName)
+        public List<CategoryModel> GetAllCategory()
+        {
+            List<CategoryModel> list = new List<CategoryModel>();
+            string query = "SELECT * FROM " + Table.ItemCategory;
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                CategoryModel category = new CategoryModel();
+                                category.Id = int.Parse(dr[Table.ItemCategoryColumn.Id].ToString());
+                                category.CategoryName = dr[Table.ItemCategoryColumn.CategoryName].ToString();
+                                list.Add(category);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public List<SupplierModel> GetAllSupplier()
+        {
+            List<SupplierModel> list = new List<SupplierModel>();
+            string query = "SELECT * FROM " + Table.Supplier;
+
+            using (SqlConnection connection = new SqlConnection(connStr))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                SupplierModel supplier = new SupplierModel();
+                                supplier.Id = int.Parse(dr[Table.SupplierColumn.Id].ToString());
+                                supplier.SupplierName = dr[Table.SupplierColumn.SupplierName].ToString();
+                                supplier.Phone = int.Parse(dr[Table.SupplierColumn.Phone].ToString());
+                                list.Add(supplier);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+
+        // TODO : Get all column values based on foreign key
+        public List<string> GetAllColmnValue(in string table, in string columnName)
         {
             List<string> list = new List<string>();
 
@@ -335,10 +449,31 @@ namespace CSharp_Inventory.DataProcessing
             return list;
         }
 
-        public DataTable PopulateTable(string table)
+        public DataTable PopulateTable(in string table)
         {
             DataTable dt = new DataTable();
-            string query = "SELECT * FROM " + table;
+            string query = "";
+
+            if(table == Table.Item)
+            {
+                query += "SELECT ";
+                query += "item." + Table.ItemColumn.Id + ", ";
+                query += "item." + Table.ItemColumn.ItemName + ", ";
+                query += "category." + Table.ItemCategoryColumn.CategoryName + ", ";
+                query += "supplier." + Table.SupplierColumn.SupplierName + ", ";
+                query += "item." + Table.ItemColumn.Quantity + ", ";
+                query += "item." + Table.ItemColumn.UnitPrice + ", ";
+                query += "item." + Table.ItemColumn.Description + " ";
+                query += "FROM " + Table.Item + " item ";
+                query += "INNER JOIN " + Table.ItemCategory + " category ";
+                query += "ON item." + Table.ItemColumn.CategoryId + " = category." + Table.ItemCategoryColumn.Id + " ";
+                query += "INNER JOIN " + Table.Supplier + " supplier ";
+                query += "ON item." + Table.ItemColumn.SupplierId + " = supplier." + Table.SupplierColumn.Id;
+            }
+            else
+            {
+                query = "SELECT * FROM " + table;
+            }
 
             using (SqlConnection connection = new SqlConnection(connStr))
             {
