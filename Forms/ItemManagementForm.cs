@@ -29,15 +29,24 @@ namespace CSharp_Inventory
 
         private void SetupComboBoxes()
         {
-            CategoryNameComboBox.DataSource = null;
             CategoryNameComboBox.DataSource = categories;
             CategoryNameComboBox.DisplayMember = Table.ItemCategoryColumn.CategoryName;
             CategoryNameComboBox.Text = "<select>";
 
-            SupplierNameComboBox.DataSource = null;
             SupplierNameComboBox.DataSource = suppliers;
             SupplierNameComboBox.DisplayMember = Table.SupplierColumn.SupplierName;
             SupplierNameComboBox.Text = "<select>";
+        }
+
+        private void ClearInput()
+        {
+            IdTextbox.Clear();
+            CategoryNameComboBox.Text = "<select>";
+            SupplierNameComboBox.Text = "<select>";
+            ItemNameTextbox.Clear();
+            QuantityTextbox.Clear();
+            UnitPriceTextbox.Clear();
+            DescriptionRichTextBox.Clear();
         }
 
         private void ItemManagementForm_Load(object sender, EventArgs e)
@@ -51,13 +60,7 @@ namespace CSharp_Inventory
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            IdTextbox.Clear();
-            CategoryNameComboBox.Text = "<select>";
-            SupplierNameComboBox.Text = "<select>";
-            ItemNameTextbox.Clear();
-            QuantityTextbox.Clear();
-            UnitPriceTextbox.Clear();
-            DescriptionRichTextBox.Clear();
+            ClearInput();
         }
 
         private void DelButton_Click(object sender, EventArgs e)
@@ -75,6 +78,7 @@ namespace CSharp_Inventory
                 Config.Connection.DeleteRecord(Table.Item, Table.ItemColumn.Id, IdTextbox.Text);
                 MessageBox.Show("Item Successfully Deleted");
                 ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
+                ClearInput();
             }
         }
 
@@ -143,6 +147,7 @@ namespace CSharp_Inventory
                 Config.Connection.AddItem(item);
                 MessageBox.Show("Item Successfully Added");
                 ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
+                ClearInput();
             }
         }
 
@@ -162,6 +167,7 @@ namespace CSharp_Inventory
                 Config.Connection.EditItem(item);
                 MessageBox.Show("Item Successfully Editted");
                 ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
+                ClearInput();
             }
         }
     }

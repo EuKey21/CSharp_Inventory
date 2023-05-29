@@ -14,9 +14,6 @@ namespace CSharp_Inventory
 {
     public partial class SuppliersManagementForm : Form
     {
-        const string TABLE = "SupplierTable";
-        const string PRIMARY_KEY_LABEL = "Id";
-
         public SuppliersManagementForm()
         {
             InitializeComponent();
@@ -25,6 +22,13 @@ namespace CSharp_Inventory
         private void ClosingLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ClearInput()
+        {
+            IdTextbox.Clear();
+            SupplierNameTextbox.Clear();
+            PhoneTextbox.Clear();
         }
 
         private bool ValidateForm()
@@ -51,9 +55,7 @@ namespace CSharp_Inventory
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            IdTextbox.Clear();
-            SupplierNameTextbox.Clear();
-            PhoneTextbox.Clear();
+            ClearInput();
         }
 
         private void DelButton_Click(object sender, EventArgs e)
@@ -64,9 +66,10 @@ namespace CSharp_Inventory
             }
             else
             {
-                Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, IdTextbox.Text);
+                Config.Connection.DeleteRecord(Table.Supplier, Table.SupplierColumn.Id, IdTextbox.Text);
                 MessageBox.Show("Customer Successfully Deleted");
-                SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(Table.Supplier);
+                ClearInput();
             }
         }
 
@@ -80,13 +83,14 @@ namespace CSharp_Inventory
 
                 Config.Connection.AddSupplier(supplier);
                 MessageBox.Show("Supplier Successfully Added");
-                SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(Table.Supplier);
+                ClearInput();
             }
         }
 
         private void SuppliersManagementForm_Load(object sender, EventArgs e)
         {
-            SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+            SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(Table.Supplier);
         }
 
         private void EditButton_Click(object sender, EventArgs e)
@@ -100,7 +104,8 @@ namespace CSharp_Inventory
 
                 Config.Connection.EditSupplier(supplier);
                 MessageBox.Show("Supplier Successfully Editted");
-                SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                SuppliersDataGridView.DataSource = Config.Connection.PopulateTable(Table.Supplier);
+                ClearInput();
             }
         }
 

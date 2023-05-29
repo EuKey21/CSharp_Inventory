@@ -7,6 +7,12 @@ namespace CSharp_inventory
             InitializeComponent();
         }
 
+        private void ClearInput()
+        {
+            UsernameTextbox.Clear();
+            PasswordTextbox.Clear();
+        }
+
         private void ShowPasswordCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (ShowPasswordCheckbox.Checked == true)
@@ -21,8 +27,7 @@ namespace CSharp_inventory
 
         private void ClearLable_Click(object sender, EventArgs e)
         {
-            UsernameTextbox.Text = "";
-            PasswordTextbox.Text = "";
+            ClearInput();
         }
         private void LoginButton_Click(object sender, EventArgs e)
         {

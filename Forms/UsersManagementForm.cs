@@ -15,9 +15,6 @@ namespace CSharp_Inventory
 {
     public partial class UsersManagementForm : Form
     {
-        const string TABLE = "UserTable";
-        const string PRIMARY_KEY_LABEL = "Username";
-
         public UsersManagementForm()
         {
             InitializeComponent();
@@ -28,11 +25,22 @@ namespace CSharp_Inventory
             Application.Exit();
         }
 
+        private void ClearInput()
+        {
+            UsernameTextbox.Clear();
+            PasswordTextbox.Clear();
+            FirstNameTextbox.Clear();
+            LastNameTextbox.Clear();
+            GenderTextbox.Clear();
+            AgeTextbox.Clear();
+            EmailTextbox.Clear();
+        }
+
         private void AddButton_Click(object sender, EventArgs e)
         {
             if(ValidateForm() == true)
             {
-                if (Config.Connection.IsDataUnique(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text) == true)
+                if (Config.Connection.IsDataUnique(Table.User, Table.UserColumn.UserName, UsernameTextbox.Text) == true)
                 {
                     PersonModel person = new PersonModel();
                     person.UserName = UsernameTextbox.Text;
@@ -45,7 +53,8 @@ namespace CSharp_Inventory
 
                     Config.Connection.AddPerson(person);
                     MessageBox.Show("User Successfully Added");
-                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(Table.User);
+                    ClearInput();
                 }
                 else
                 {
@@ -136,7 +145,7 @@ namespace CSharp_Inventory
 
         private void UsersManagementForm_Load(object sender, EventArgs e)
         {
-            UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+            UsersDataGridView.DataSource = Config.Connection.PopulateTable(Table.User);
         }
 
         private void DelButton_Click(object sender, EventArgs e)
@@ -148,11 +157,12 @@ namespace CSharp_Inventory
             else
             {
                 // validate if record exists
-                if (Config.Connection.IsDataUnique(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text) == false)
+                if (Config.Connection.IsDataUnique(Table.User, Table.UserColumn.UserName, UsernameTextbox.Text) == false)
                 {
-                    Config.Connection.DeleteRecord(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text);
+                    Config.Connection.DeleteRecord(Table.User, Table.UserColumn.UserName, UsernameTextbox.Text);
                     MessageBox.Show("User Successfully Deleted");
-                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(Table.User);
+                    ClearInput();
                 }
                 else
                 {
@@ -186,13 +196,7 @@ namespace CSharp_Inventory
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            UsernameTextbox.Clear();
-            PasswordTextbox.Clear();
-            FirstNameTextbox.Clear();
-            LastNameTextbox.Clear();
-            GenderTextbox.Clear();
-            AgeTextbox.Clear();
-            EmailTextbox.Clear();
+            ClearInput();
         }
 
         private void EditButton_Click(object sender, EventArgs e)
@@ -200,7 +204,7 @@ namespace CSharp_Inventory
             if (ValidateForm() == true)
             {
                 // validate if record exists
-                if (Config.Connection.IsDataUnique(TABLE, PRIMARY_KEY_LABEL, UsernameTextbox.Text) == false)
+                if (Config.Connection.IsDataUnique(Table.User, Table.UserColumn.UserName, UsernameTextbox.Text) == false)
                 {
                     PersonModel person = new PersonModel();
                     person.UserName = UsernameTextbox.Text;
@@ -213,7 +217,8 @@ namespace CSharp_Inventory
 
                     Config.Connection.EditPerson(person);
                     MessageBox.Show("User Successfully Edited");
-                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(TABLE);
+                    UsersDataGridView.DataSource = Config.Connection.PopulateTable(Table.User);
+                    ClearInput();
                 }
                 else
                 {

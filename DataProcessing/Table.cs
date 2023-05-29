@@ -63,7 +63,7 @@ namespace CSharp_Inventory.DataProcessing
             public static string Phone { get { return new string("Phone"); } }
         }
 
-        public static string User { get { return new string("UserTbale"); } }
+        public static string User { get { return new string("UserTable"); } }
 
         public static class UserColumn
         {

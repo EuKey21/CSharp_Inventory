@@ -12,36 +12,38 @@ namespace CSharp_Inventory.DataProcessing
     {
         void AddPerson(in PersonModel model);
 
-        public void EditPerson(in PersonModel model);
+        void EditPerson(in PersonModel model);
 
-        public void AddCustomer(in CustomerModel model);
+        void AddCustomer(in CustomerModel model);
 
-        public void EditCustomer(in CustomerModel model);
+        void EditCustomer(in CustomerModel model);
 
-        public void AddCategory(in CategoryModel model);
+        void AddCategory(in CategoryModel model);
 
-        public void EditCategory(in CategoryModel model);
+        void EditCategory(in CategoryModel model);
 
-        public void AddItem(in ItemModel model);
+        void AddItem(in ItemModel model);
 
-        public void EditItem(in ItemModel model);
+        void EditItem(in ItemModel model);
 
-        public void AddSupplier(in SupplierModel model);
+        void AddSupplier(in SupplierModel model);
 
-        public void EditSupplier(in SupplierModel model);
+        void EditSupplier(in SupplierModel model);
 
         bool IsDataUnique(in string table, in string dataLabel, in string data);
 
-        public List<PersonModel> GetAllPerson();
+        int CountDataEntry(in string table, in string columnLable, in string data);
 
-        public List<CategoryModel> GetAllCategory();
+        List<PersonModel> GetAllPerson();
 
-        public List<SupplierModel> GetAllSupplier();
+        List<CategoryModel> GetAllCategory();
 
-        public List<string> GetAllColmnValue(in string table, in string columnName);
+        List<SupplierModel> GetAllSupplier();
 
-        public DataTable PopulateTable(in string table);
+        List<string> GetAllColmnValue(in string table, in string columnName);
 
-        public void DeleteRecord(in string table, in string primaryKeyLabel, in string primaryKey);
+        DataTable PopulateTable(in string table);
+
+        void DeleteRecord(in string table, in string primaryKeyLabel, in string primaryKey);
     }
 }

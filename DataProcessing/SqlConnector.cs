@@ -14,7 +14,7 @@ namespace CSharp_Inventory.DataProcessing
 {
     public class SqlConnector : IDataConnection
     {
-        private const string connStr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\fexke\Documents\InventoryDB.mdf;Integrated Security=True;Connect Timeout=30";
+        private readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\fexke\Documents\InventoryDB.mdf;Integrated Security=True;Connect Timeout=30";
 
         public void AddPerson(in PersonModel model)
         {
@@ -28,7 +28,7 @@ namespace CSharp_Inventory.DataProcessing
             query += Table.UserColumn.Email + ") ";
             query += "VALUES (@Username, @Password, @FirstName, @LastName, @Gender, @Age, @Email)";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -58,7 +58,7 @@ namespace CSharp_Inventory.DataProcessing
             query += "WHERE " + Table.UserColumn.UserName + " = @Username";
 
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -84,7 +84,7 @@ namespace CSharp_Inventory.DataProcessing
             query += Table.CustomerColumn.Phone + ") ";
             query += "VALUES (@FirstName, @LastName, @Phone)";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -107,7 +107,7 @@ namespace CSharp_Inventory.DataProcessing
             query += Table.CustomerColumn.Phone + " = @Phone ";
             query += "WHERE " + Table.CustomerColumn.Id + " = @Id";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -127,7 +127,7 @@ namespace CSharp_Inventory.DataProcessing
             string query = "INSERT INTO " + Table.ItemCategory + " (";
             query += Table.ItemCategoryColumn.CategoryName + ") VALUES (@CategoryName)";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -143,10 +143,10 @@ namespace CSharp_Inventory.DataProcessing
         public void EditCategory(in CategoryModel model)
         {
             string query = "UPDATE " + Table.ItemCategory + " SET ";
-            query += Table.ItemCategoryColumn.CategoryName + " = @CategoryName";
+            query += Table.ItemCategoryColumn.CategoryName + " = @CategoryName ";
             query += "WHERE " + Table.ItemCategoryColumn.Id + " = @Id";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -182,7 +182,7 @@ namespace CSharp_Inventory.DataProcessing
             query += Table.ItemColumn.Description + ") ";
             query += "VALUES (@ItemName, @CategoryId, @SupplierId, @Quantity, @UnitPrice, @Description)";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -223,7 +223,7 @@ namespace CSharp_Inventory.DataProcessing
             query += Table.ItemColumn.Description + " = @Description ";
             query += "WHERE " + Table.ItemColumn.Id + " = @Id";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -243,11 +243,12 @@ namespace CSharp_Inventory.DataProcessing
 
         public void AddSupplier(in SupplierModel model)
         {
-            string query = "INSERT INTO SupplierTable ";
-            query += "(SupplierName, Phone) ";
+            string query = "INSERT INTO " + Table.Supplier + " (";
+            query += Table.SupplierColumn.SupplierName + ", ";
+            query += Table.SupplierColumn.Phone + ") ";
             query += "VALUES (@SupplierName, @Phone)";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -263,11 +264,12 @@ namespace CSharp_Inventory.DataProcessing
 
         public void EditSupplier(in SupplierModel model)
         {
-            string query = "UPDATE SupplierTable SET ";
-            query += "SupplierName = @SupplierName, Phone = @Phone ";
-            query += "WHERE Id = @Id";
+            string query = "UPDATE " + Table.Supplier + " SET ";
+            query += Table.SupplierColumn.SupplierName + " = @SupplierName, ";
+            query += Table.SupplierColumn.Phone + " = @Phone ";
+            query += "WHERE " + Table.SupplierColumn.Id + " = @Id";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -285,11 +287,11 @@ namespace CSharp_Inventory.DataProcessing
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@" + primaryKeyLabel + "", primaryKey);
+                    cmd.Parameters.AddWithValue("@" + primaryKeyLabel, primaryKey);
 
                     connection.Open();
 
@@ -302,7 +304,7 @@ namespace CSharp_Inventory.DataProcessing
         {
             string query = "SELECT " + dataLabel + " FROM " + table + " WHERE " + dataLabel + " = @" + dataLabel;
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -323,12 +325,30 @@ namespace CSharp_Inventory.DataProcessing
             return true;
         }
 
+        public int CountDataEntry(in string table, in string columnLable, in string data)
+        {
+            int count = 0;
+
+            string query = "SELECT COUNT(" + columnLable + ") FROM " + table;
+            query += " WHERE " + columnLable + " = " + data;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    count = (int)cmd.ExecuteScalar();
+                }
+            }
+
+            return count;
+        }
+
         public List<PersonModel> GetAllPerson()
         {
             List<PersonModel> list = new List<PersonModel>();
             string query = " SELECT * FROM UserTable";
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -363,7 +383,7 @@ namespace CSharp_Inventory.DataProcessing
             List<CategoryModel> list = new List<CategoryModel>();
             string query = "SELECT * FROM " + Table.ItemCategory;
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -393,7 +413,7 @@ namespace CSharp_Inventory.DataProcessing
             List<SupplierModel> list = new List<SupplierModel>();
             string query = "SELECT * FROM " + Table.Supplier;
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -427,7 +447,7 @@ namespace CSharp_Inventory.DataProcessing
 
             string query = "SELECT " + columnName + " FROM " + table;
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -475,7 +495,7 @@ namespace CSharp_Inventory.DataProcessing
                 query = "SELECT * FROM " + table;
             }
 
-            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
