@@ -48,7 +48,7 @@
             this.DescriptionRichTextBox = new System.Windows.Forms.RichTextBox();
             this.IdTextbox = new System.Windows.Forms.TextBox();
             this.DescriptionLabel = new System.Windows.Forms.Label();
-            this.CustomersListLabel = new System.Windows.Forms.Label();
+            this.ItemsListLabel = new System.Windows.Forms.Label();
             this.ItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.ClearButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
@@ -238,16 +238,16 @@
             this.DescriptionLabel.TabIndex = 34;
             this.DescriptionLabel.Text = "Description: ";
             // 
-            // CustomersListLabel
+            // ItemsListLabel
             // 
-            this.CustomersListLabel.AutoSize = true;
-            this.CustomersListLabel.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.CustomersListLabel.ForeColor = System.Drawing.Color.RosyBrown;
-            this.CustomersListLabel.Location = new System.Drawing.Point(724, 139);
-            this.CustomersListLabel.Name = "CustomersListLabel";
-            this.CustomersListLabel.Size = new System.Drawing.Size(242, 47);
-            this.CustomersListLabel.TabIndex = 36;
-            this.CustomersListLabel.Text = "List of Items";
+            this.ItemsListLabel.AutoSize = true;
+            this.ItemsListLabel.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ItemsListLabel.ForeColor = System.Drawing.Color.RosyBrown;
+            this.ItemsListLabel.Location = new System.Drawing.Point(724, 139);
+            this.ItemsListLabel.Name = "ItemsListLabel";
+            this.ItemsListLabel.Size = new System.Drawing.Size(242, 47);
+            this.ItemsListLabel.TabIndex = 36;
+            this.ItemsListLabel.Text = "List of Items";
             // 
             // ItemsDataGridView
             // 
@@ -389,7 +389,7 @@
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.DelButton);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.CustomersListLabel);
+            this.Controls.Add(this.ItemsListLabel);
             this.Controls.Add(this.ItemsDataGridView);
             this.Controls.Add(this.DescriptionLabel);
             this.Controls.Add(this.IdTextbox);
@@ -437,7 +437,7 @@
         private RichTextBox DescriptionRichTextBox;
         private TextBox IdTextbox;
         private Label DescriptionLabel;
-        private Label CustomersListLabel;
+        private Label ItemsListLabel;
         private DataGridView ItemsDataGridView;
         private Button ClearButton;
         private Button EditButton;

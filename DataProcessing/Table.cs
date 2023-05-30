@@ -50,7 +50,36 @@ namespace CSharp_Inventory.DataProcessing
             public static string Description { get { return new string("Description"); } }
         }
 
-        public static string Stock { get { return new string("StockTable"); } } // TODO
+        public static string Stock { get { return new string("StockTable"); } }
+
+        public static class StockColumn
+        {
+            public static string Id { get { return new string("Id"); } }
+
+            public static string SupplierId { get { return new string("SupplierId"); } }
+
+            public static string StockItemList { get { return new string("StockItemList"); } }
+
+            public static string StockPrice { get { return new string("StockPrice"); } }
+
+            public static string Date { get { return new string("Date"); } }
+
+            public static string Description { get { return new string("Description"); } }
+            
+        }
+
+        public static string StockItem { get { return new string("StockItemTable"); } }
+
+        public static class StockItemColumn
+        {
+            public static string StockId { get { return new string("StockId"); } }
+
+            public static string ItemId { get { return new string("ItemId"); } }
+
+            public static string ItemStockQuantity { get { return new string("ItemStockQuantity"); } }
+
+            public static string ItemTotalPrice { get { return new string("ItemTotalPrice"); } }
+        }
 
         public static string Supplier { get { return new string("SupplierTable"); } }
 

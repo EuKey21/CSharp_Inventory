@@ -38,7 +38,13 @@ namespace CSharp_Inventory.DataProcessing
 
         List<CategoryModel> GetAllCategory();
 
+        CategoryModel GetCategory(int id);
+
         List<SupplierModel> GetAllSupplier();
+
+        SupplierModel GetSupplier(int id);
+
+        List<ItemModel> GetAllItem();
 
         List<string> GetAllColmnValue(in string table, in string columnName);
 

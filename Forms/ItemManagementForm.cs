@@ -141,7 +141,7 @@ namespace CSharp_Inventory
                 item.Category = (CategoryModel)CategoryNameComboBox.SelectedItem;
                 item.Supplier = (SupplierModel)SupplierNameComboBox.SelectedItem;
                 item.Quantity = 0;
-                item.UnitPrice = double.Parse(UnitPriceTextbox.Text);
+                item.UnitPrice = decimal.Parse(UnitPriceTextbox.Text);
                 item.Description = DescriptionRichTextBox.Text;
 
                 Config.Connection.AddItem(item);
@@ -161,7 +161,7 @@ namespace CSharp_Inventory
                 item.Category = (CategoryModel)CategoryNameComboBox.SelectedItem;
                 item.Supplier = (SupplierModel)SupplierNameComboBox.SelectedItem;
                 item.Quantity = int.Parse(QuantityTextbox.Text);
-                item.UnitPrice = double.Parse(UnitPriceTextbox.Text);
+                item.UnitPrice = decimal.Parse(UnitPriceTextbox.Text);
                 item.Description = DescriptionRichTextBox.Text;
 
                 Config.Connection.EditItem(item);

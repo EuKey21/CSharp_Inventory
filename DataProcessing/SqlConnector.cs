@@ -336,12 +336,15 @@ namespace CSharp_Inventory.DataProcessing
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
+                    connection.Open();
                     count = (int)cmd.ExecuteScalar();
                 }
             }
 
             return count;
         }
+
+        
 
         public List<PersonModel> GetAllPerson()
         {
@@ -408,6 +411,33 @@ namespace CSharp_Inventory.DataProcessing
             return list;
         }
 
+        public CategoryModel GetCategory(int id)
+        {
+            CategoryModel model = new CategoryModel();
+
+            string query = "SELECT * FROM " + Table.ItemCategory;
+            query += " WHERE " + Table.ItemCategoryColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.Id = int.Parse(dr[Table.ItemCategoryColumn.Id].ToString());
+                            model.CategoryName = dr[Table.ItemCategoryColumn.CategoryName].ToString();
+                        }
+                    }
+                }
+            }
+
+            return model;
+        }
+
         public List<SupplierModel> GetAllSupplier()
         {
             List<SupplierModel> list = new List<SupplierModel>();
@@ -439,8 +469,83 @@ namespace CSharp_Inventory.DataProcessing
             return list;
         }
 
+        public SupplierModel GetSupplier(int id)
+        {
+            SupplierModel model = new SupplierModel();
 
-        // TODO : Get all column values based on foreign key
+            string query = "SELECT * FROM " + Table.Supplier;
+            query += " WHERE " + Table.SupplierColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.Id = int.Parse(dr[Table.SupplierColumn.Id].ToString());
+                            model.SupplierName = dr[Table.SupplierColumn.SupplierName].ToString();
+                            model.Phone = int.Parse(dr[Table.SupplierColumn.Phone].ToString());
+                        }
+                    }
+                }
+            }
+
+            return model;
+        }
+
+        public List<ItemModel> GetAllItem()
+        {
+            List<ItemModel> list = new List<ItemModel>();
+            string query = "SELECT * FROM " + Table.Item;
+
+            //query += "SELECT ";
+            //query += "item." + Table.ItemColumn.Id;
+            //query += ", item." + Table.ItemColumn.ItemName;
+            //query += ", category." + Table.ItemCategoryColumn.CategoryName;
+            //query += ", supplier." + Table.SupplierColumn.SupplierName;
+            //query += ", item." + Table.ItemColumn.Quantity;
+            //query += ", item." + Table.ItemColumn.UnitPrice;
+            //query += ", item." + Table.ItemColumn.Description;
+            //query += " INNER JOIN " + Table.ItemCategory;
+            //query += " category ON item." + Table.ItemColumn.CategoryId + " = category." + Table.ItemCategoryColumn.Id;
+            //query += " INNER JOIN " + Table.Supplier;
+            //query += " supplier ON item." + Table.ItemColumn.SupplierId + " = supplier." + Table.SupplierColumn.Id;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                ItemModel item = new ItemModel();
+                                item.Id = int.Parse(dr[Table.ItemColumn.Id].ToString());
+                                item.ItemName = dr[Table.ItemColumn.ItemName].ToString();
+                                item.Category = GetCategory(int.Parse(dr[Table.ItemColumn.CategoryId].ToString()));
+                                item.Supplier = GetSupplier(int.Parse(dr[Table.ItemColumn.SupplierId].ToString()));
+                                item.Quantity = int.Parse(dr[Table.ItemColumn.Quantity].ToString());
+                                item.UnitPrice = decimal.Parse(dr[Table.ItemColumn.UnitPrice].ToString());
+                                item.Description = dr[Table.ItemColumn.Description].ToString();
+                                list.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+
         public List<string> GetAllColmnValue(in string table, in string columnName)
         {
             List<string> list = new List<string>();
