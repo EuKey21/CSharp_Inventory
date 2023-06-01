@@ -12,7 +12,7 @@ namespace CSharp_Inventory.Models
 
         public ItemModel? Item { get; set; }
 
-        public int ItemStockQuantity { get; set; }      // TODO : add this quantity to current item quantity
+        public int ItemStockQuantity { get; set; }
 
         public decimal? ItemTotalPrice { get { return Item?.UnitPrice * ItemStockQuantity; } }
     }

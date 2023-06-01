@@ -298,7 +298,14 @@ namespace CSharp_Inventory.DataProcessing
 
         public int AddStock(in StockModel model)
         {
-            string query = "INSERT INTO " + Table.Stock + " (";
+            string query = "";
+
+            query += "DECLARE @SupplierId INT; ";
+            query += "SET @SupplierId = (SELECT " + Table.SupplierColumn.Id + " ";
+            query += "FROM " + Table.Supplier + " ";
+            query += "WHERE " + Table.SupplierColumn.Id + " = @FK_SupplierId); ";
+
+            query += "INSERT INTO " + Table.Stock + " (";
             query += Table.StockColumn.SupplierId + ", ";
             query += Table.StockColumn.StockPrice + ", ";
             query += Table.StockColumn.Date + ", ";
@@ -312,8 +319,81 @@ namespace CSharp_Inventory.DataProcessing
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@SupplierId", model.Supplier.Id);
+                    cmd.Parameters.AddWithValue("@FK_SupplierId", model.Supplier.Id);
                     cmd.Parameters.AddWithValue("@StockPrice", model.StockPrice);
+                    cmd.Parameters.AddWithValue("@Date", model.Date);
+                    cmd.Parameters.AddWithValue("@Description", model.Description);
+
+                    connection.Open();
+                    id = (int)cmd.ExecuteScalar();
+                }
+            }
+
+            return id;
+        }
+
+        public void AddSaleItem(in SaleItemModel model)
+        {
+            string query = "";
+
+            query += "DECLARE @SaleId INT; ";
+            query += "SET @SaleId = (SELECT " + Table.SaleColumn.Id + " ";
+            query += "FROM " + Table.Sale + " ";
+            query += "WHERE " + Table.SaleColumn.Id + " = @FK_SaleId); ";
+
+            query += "DECLARE @ItemId INT; ";
+            query += "SET @ItemId = (SELECT " + Table.ItemColumn.Id + " ";
+            query += "FROM " + Table.Item + " ";
+            query += "WHERE " + Table.ItemColumn.Id + " = @FK_ItemId); ";
+
+            query += "INSERT INTO " + Table.SaleItem + " (";
+            query += Table.SaleItemColumn.SaleId + ", ";
+            query += Table.SaleItemColumn.ItemId + ", ";
+            query += Table.SaleItemColumn.ItemSaleQuantity + ", ";
+            query += Table.SaleItemColumn.ItemTotalPrice + ") ";
+            query += "VALUES (@SaleId, @ItemId, @ItemSaleQuantity, @ItemTotalPrice)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@FK_SaleId", model.Sale.Id);
+                    cmd.Parameters.AddWithValue("@FK_ItemId", model.Item.Id);
+                    cmd.Parameters.AddWithValue("@ItemSaleQuantity", model.ItemSaleQuantity);
+                    cmd.Parameters.AddWithValue("@ItemTotalPrice", model.ItemTotalPrice);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+        }
+
+        public int AddSale(in SaleModel model)
+        {
+            string query = "";
+
+            query += "DECLARE @CustomerId INT; ";
+            query += "SET @CustomerId = (SELECT " + Table.CustomerColumn.Id + " ";
+            query += "FROM " + Table.Customer + " ";
+            query += "WHERE " + Table.CustomerColumn.Id + " = @FK_CustomerId); ";
+
+            query += "INSERT INTO " + Table.Sale + " (";
+            query += Table.SaleColumn.CustomerId + ", ";
+            query += Table.SaleColumn.SalePrice + ", ";
+            query += Table.SaleColumn.Date + ", ";
+            query += Table.SaleColumn.Description + ") ";
+            query += "OUTPUT INSERTED.Id ";     // use ExeciteScalar to retrieve the id
+            query += "VALUES (@CustomerId, @SalePrice, @Date, @Description)";
+
+            int id = -1;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@FK_CustomerId", model.Customer.Id);
+                    cmd.Parameters.AddWithValue("@SalePrice", model.SalePrice);
                     cmd.Parameters.AddWithValue("@Date", model.Date);
                     cmd.Parameters.AddWithValue("@Description", model.Description);
 
@@ -427,8 +507,6 @@ namespace CSharp_Inventory.DataProcessing
 
             return count;
         }
-
-        
 
         public List<PersonModel> GetAllPerson()
         {
@@ -615,7 +693,6 @@ namespace CSharp_Inventory.DataProcessing
 
             return list;
         }
-
 
         public List<string> GetAllColmnValue(in string table, in string columnName)
         {

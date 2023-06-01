@@ -10,13 +10,15 @@ namespace CSharp_Inventory.Models
     {
         public int Id { get; set; }
 
-        public string? CustomerName { get; set; }
+        public CustomerModel? Customer { get; set; }
 
-        public string[]? Items { get; set; }
+        public List<ItemModel>? SaleItemList { get; set; }
 
-        public decimal? TotalPrice { get; set; }
+        public decimal? SalePrice { get; set; }
 
         public DateTime Date { get; set; }
+
+        public string? Description { get; set; }
 
     }
 }

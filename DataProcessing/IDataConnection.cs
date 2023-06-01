@@ -32,6 +32,10 @@ namespace CSharp_Inventory.DataProcessing
 
         int AddStock(in StockModel model);
 
+        void AddSaleItem(in SaleItemModel model);
+
+        int AddSale(in SaleModel model);
+
         void AddSupplier(in SupplierModel model);
 
         void EditSupplier(in SupplierModel model);

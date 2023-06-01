@@ -81,6 +81,36 @@ namespace CSharp_Inventory.DataProcessing
             public static string ItemTotalPrice { get { return new string("ItemTotalPrice"); } }
         }
 
+        public static string Sale { get { return new string("SaleTable"); } }
+
+        public static class SaleColumn
+        {
+            public static string Id { get { return new string("Id"); } }
+
+            public static string CustomerId { get { return new string("CustomerId"); } }
+
+            public static string SaleItemList { get { return new string("SaleItemList"); } }
+
+            public static string SalePrice { get { return new string("SalePrice"); } }
+
+            public static string Date { get { return new string("Date"); } }
+
+            public static string Description { get { return new string("Description"); } }
+        }
+
+        public static string SaleItem { get { return new string("SaleItemTable"); } }
+
+        public static class SaleItemColumn
+        {
+            public static string SaleId { get { return new string("SaleId"); } }
+
+            public static string ItemId { get { return new string("ItemId"); } }
+
+            public static string ItemSaleQuantity { get { return new string("ItemSaleQuantity"); } }
+
+            public static string ItemTotalPrice { get { return new string("ItemTotalPrice"); } }
+        }
+
         public static string Supplier { get { return new string("SupplierTable"); } }
 
         public static class SupplierColumn
