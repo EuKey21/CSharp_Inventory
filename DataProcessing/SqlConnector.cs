@@ -241,6 +241,90 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
+        public void UpdateItem_Quantity(in ItemModel model, in decimal newQuantity)
+        {
+            string query = "UPDATE " + Table.Item + " SET ";
+            query += Table.ItemColumn.Quantity + " = @Quantity ";
+            query += "WHERE " + Table.ItemColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Id", model.Id);
+                    cmd.Parameters.AddWithValue("@Quantity", newQuantity);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddStockItem(in StockItemModel model)
+        {
+            string query = "";
+
+            query += "DECLARE @StockId INT; ";
+            query += "SET @StockId = (SELECT " + Table.StockColumn.Id + " ";
+            query += "FROM " + Table.Stock + " ";
+            query += "WHERE " + Table.StockColumn.Id + " = @FK_StockId); ";
+
+            query += "DECLARE @ItemId INT; ";
+            query += "SET @ItemId = (SELECT " + Table.ItemColumn.Id + " ";
+            query += "FROM " + Table.Item + " ";
+            query += "WHERE " + Table.ItemColumn.Id + " = @FK_ItemId); ";
+
+            query += "INSERT INTO " + Table.StockItem + " (";
+            query += Table.StockItemColumn.StockId + ", ";
+            query += Table.StockItemColumn.ItemId + ", ";
+            query += Table.StockItemColumn.ItemStockQuantity + ", ";
+            query += Table.StockItemColumn.ItemTotalPrice + ") ";
+            query += "VALUES (@StockId, @ItemId, @ItemStockQuantity, @ItemTotalPrice)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@FK_StockId", model.Stock.Id);
+                    cmd.Parameters.AddWithValue("@FK_ItemId", model.Item.Id);
+                    cmd.Parameters.AddWithValue("@ItemStockQuantity", model.ItemStockQuantity);
+                    cmd.Parameters.AddWithValue("@ItemTotalPrice", model.ItemTotalPrice);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public int AddStock(in StockModel model)
+        {
+            string query = "INSERT INTO " + Table.Stock + " (";
+            query += Table.StockColumn.SupplierId + ", ";
+            query += Table.StockColumn.StockPrice + ", ";
+            query += Table.StockColumn.Date + ", ";
+            query += Table.StockColumn.Description + ") ";
+            query += "OUTPUT INSERTED.Id ";     // use ExeciteScalar to retrieve the id
+            query += "VALUES (@SupplierId, @StockPrice, @Date, @Description)";
+
+            int id = -1;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@SupplierId", model.Supplier.Id);
+                    cmd.Parameters.AddWithValue("@StockPrice", model.StockPrice);
+                    cmd.Parameters.AddWithValue("@Date", model.Date);
+                    cmd.Parameters.AddWithValue("@Description", model.Description);
+
+                    connection.Open();
+                    id = (int)cmd.ExecuteScalar();
+                }
+            }
+
+            return id;
+        }
+
         public void AddSupplier(in SupplierModel model)
         {
             string query = "INSERT INTO " + Table.Supplier + " (";
@@ -501,19 +585,6 @@ namespace CSharp_Inventory.DataProcessing
         {
             List<ItemModel> list = new List<ItemModel>();
             string query = "SELECT * FROM " + Table.Item;
-
-            //query += "SELECT ";
-            //query += "item." + Table.ItemColumn.Id;
-            //query += ", item." + Table.ItemColumn.ItemName;
-            //query += ", category." + Table.ItemCategoryColumn.CategoryName;
-            //query += ", supplier." + Table.SupplierColumn.SupplierName;
-            //query += ", item." + Table.ItemColumn.Quantity;
-            //query += ", item." + Table.ItemColumn.UnitPrice;
-            //query += ", item." + Table.ItemColumn.Description;
-            //query += " INNER JOIN " + Table.ItemCategory;
-            //query += " category ON item." + Table.ItemColumn.CategoryId + " = category." + Table.ItemCategoryColumn.Id;
-            //query += " INNER JOIN " + Table.Supplier;
-            //query += " supplier ON item." + Table.ItemColumn.SupplierId + " = supplier." + Table.SupplierColumn.Id;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

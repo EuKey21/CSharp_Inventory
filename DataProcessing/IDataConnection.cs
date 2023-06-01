@@ -26,6 +26,12 @@ namespace CSharp_Inventory.DataProcessing
 
         void EditItem(in ItemModel model);
 
+        void UpdateItem_Quantity(in ItemModel model, in decimal newQuantity);
+
+        void AddStockItem(in StockItemModel model);
+
+        int AddStock(in StockModel model);
+
         void AddSupplier(in SupplierModel model);
 
         void EditSupplier(in SupplierModel model);

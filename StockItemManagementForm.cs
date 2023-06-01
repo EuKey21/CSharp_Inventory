@@ -15,22 +15,27 @@ namespace CSharp_Inventory
 {
     public partial class StockItemManagementForm : Form
     {
-        private readonly List<ItemModel> items = Config.Connection.GetAllItem();
-        private List<ItemModel> filteredItems;
-        private List<ItemModel> addedItems = new List<ItemModel>();
-        private List<StockItemModel> stockItemList = new List<StockItemModel>();
+        private StockModel stock;
+        private List<ItemModel> filteredItemList;
+        private List<ItemModel> addedItemList;
+        private List<StockItemModel> stockItemList;
+        
         private ItemModel selectedItem;
         private StockItemModel selectedStockItem;
-        private StockModel stock;
-        public StockItemManagementForm(StockModel stockModel)
+        
+        public StockItemManagementForm(StockModel _stock, List<ItemModel> _filteredItemList, List<ItemModel> _addedItemList, List<StockItemModel> _stockItemList)
         {
             InitializeComponent();
 
-            stock = stockModel;
-
-            filteredItems = items.Where(source => source.Supplier.SupplierName == stock.Supplier.SupplierName).ToList();
+            stock = _stock;
+            filteredItemList = _filteredItemList;
+            addedItemList = _addedItemList;
+            stockItemList = _stockItemList;
         }
 
+        
+        public List<ItemModel> GetFilteredItems() => filteredItemList;
+        public List<ItemModel> GetAddedItems() => addedItemList;
         public List<StockItemModel> GetStockItemList() => stockItemList;
 
         private StockItemModel TranslateItemToStockItem(ItemModel item, int quantity)
@@ -47,7 +52,7 @@ namespace CSharp_Inventory
         private void UpdateDataGridView()
         {
             ItemsDataGridView.DataSource = null;    // force data to refresh
-            ItemsDataGridView.DataSource = filteredItems.Select(
+            ItemsDataGridView.DataSource = filteredItemList.Select(
                 source => new ItemViewModel(source){ 
                     Name = source.ItemName, 
                     Category = source.Category.CategoryName, 
@@ -108,8 +113,8 @@ namespace CSharp_Inventory
         {
             if (selectedItem != null)
             {
-                addedItems.Add(selectedItem);
-                filteredItems.Remove(selectedItem);
+                addedItemList.Add(selectedItem);
+                filteredItemList.Remove(selectedItem);
 
                 StockItemQuantityForm childForm = new StockItemQuantityForm();
                 childForm.ShowDialog();
@@ -126,8 +131,8 @@ namespace CSharp_Inventory
             if (selectedStockItem != null)
             {
                 selectedItem = selectedStockItem.Item;
-                addedItems.Remove(selectedItem);
-                filteredItems.Add(selectedItem);
+                addedItemList.Remove(selectedItem);
+                filteredItemList.Add(selectedItem);
                 stockItemList.Remove(selectedStockItem);
 
                 UpdateDataGridView();

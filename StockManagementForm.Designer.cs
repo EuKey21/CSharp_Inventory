@@ -30,29 +30,28 @@ namespace CSharp_Inventory
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CustomesManagementTopPanel = new System.Windows.Forms.Panel();
             this.ClosingLabel = new System.Windows.Forms.Label();
             this.InventorySystemLabel = new System.Windows.Forms.Label();
             this.ManageItemsLabel = new System.Windows.Forms.Label();
-            this.DateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.SupplierComboBox = new System.Windows.Forms.ComboBox();
             this.ClearButton = new System.Windows.Forms.Button();
-            this.AddButton = new System.Windows.Forms.Button();
+            this.CreateButton = new System.Windows.Forms.Button();
             this.DescriptionLabel = new System.Windows.Forms.Label();
-            this.IdTextbox = new System.Windows.Forms.TextBox();
             this.DescriptionRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.DateLabel = new System.Windows.Forms.Label();
             this.StockPriceLabel = new System.Windows.Forms.Label();
             this.SupplierNameLabel = new System.Windows.Forms.Label();
-            this.IdLabel = new System.Windows.Forms.Label();
             this.HomeButton = new System.Windows.Forms.Button();
             this.StockItemsListLabel = new System.Windows.Forms.Label();
             this.StockItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.AddStockItemButton = new System.Windows.Forms.Button();
             this.StockPriceTextbox = new System.Windows.Forms.TextBox();
+            this.DateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.DateLabel = new System.Windows.Forms.Label();
+            this.SelectedSupplierLabel = new System.Windows.Forms.Label();
             this.CustomesManagementTopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StockItemsDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -105,19 +104,10 @@ namespace CSharp_Inventory
             this.ManageItemsLabel.TabIndex = 1;
             this.ManageItemsLabel.Text = "Manage Items";
             // 
-            // DateTimePicker
-            // 
-            this.DateTimePicker.CustomFormat = "MMMM dd, yyyy";
-            this.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DateTimePicker.Location = new System.Drawing.Point(288, 380);
-            this.DateTimePicker.Name = "DateTimePicker";
-            this.DateTimePicker.Size = new System.Drawing.Size(250, 31);
-            this.DateTimePicker.TabIndex = 77;
-            // 
             // SupplierComboBox
             // 
             this.SupplierComboBox.FormattingEnabled = true;
-            this.SupplierComboBox.Location = new System.Drawing.Point(288, 265);
+            this.SupplierComboBox.Location = new System.Drawing.Point(288, 210);
             this.SupplierComboBox.Name = "SupplierComboBox";
             this.SupplierComboBox.Size = new System.Drawing.Size(250, 33);
             this.SupplierComboBox.TabIndex = 75;
@@ -129,7 +119,7 @@ namespace CSharp_Inventory
             this.ClearButton.FlatAppearance.BorderSize = 0;
             this.ClearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ClearButton.ForeColor = System.Drawing.SystemColors.Info;
-            this.ClearButton.Location = new System.Drawing.Point(246, 664);
+            this.ClearButton.Location = new System.Drawing.Point(238, 611);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(175, 29);
             this.ClearButton.TabIndex = 74;
@@ -137,66 +127,47 @@ namespace CSharp_Inventory
             this.ClearButton.UseVisualStyleBackColor = false;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
-            // AddButton
+            // CreateButton
             // 
-            this.AddButton.BackColor = System.Drawing.Color.BurlyWood;
-            this.AddButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddButton.FlatAppearance.BorderSize = 0;
-            this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddButton.ForeColor = System.Drawing.SystemColors.Info;
-            this.AddButton.Location = new System.Drawing.Point(128, 619);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(410, 29);
-            this.AddButton.TabIndex = 71;
-            this.AddButton.Text = "CREATE ORDER";
-            this.AddButton.UseVisualStyleBackColor = false;
+            this.CreateButton.BackColor = System.Drawing.Color.BurlyWood;
+            this.CreateButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CreateButton.FlatAppearance.BorderSize = 0;
+            this.CreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateButton.ForeColor = System.Drawing.SystemColors.Info;
+            this.CreateButton.Location = new System.Drawing.Point(121, 562);
+            this.CreateButton.Name = "CreateButton";
+            this.CreateButton.Size = new System.Drawing.Size(410, 29);
+            this.CreateButton.TabIndex = 71;
+            this.CreateButton.Text = "CREATE ORDER";
+            this.CreateButton.UseVisualStyleBackColor = false;
+            this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
             // 
             // DescriptionLabel
             // 
             this.DescriptionLabel.AutoSize = true;
             this.DescriptionLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.DescriptionLabel.ForeColor = System.Drawing.Color.Chocolate;
-            this.DescriptionLabel.Location = new System.Drawing.Point(121, 440);
+            this.DescriptionLabel.Location = new System.Drawing.Point(121, 379);
             this.DescriptionLabel.Name = "DescriptionLabel";
             this.DescriptionLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.DescriptionLabel.Size = new System.Drawing.Size(126, 28);
             this.DescriptionLabel.TabIndex = 70;
             this.DescriptionLabel.Text = "Description: ";
             // 
-            // IdTextbox
-            // 
-            this.IdTextbox.Enabled = false;
-            this.IdTextbox.Location = new System.Drawing.Point(288, 210);
-            this.IdTextbox.Name = "IdTextbox";
-            this.IdTextbox.Size = new System.Drawing.Size(250, 31);
-            this.IdTextbox.TabIndex = 69;
-            // 
             // DescriptionRichTextBox
             // 
-            this.DescriptionRichTextBox.Location = new System.Drawing.Point(288, 440);
+            this.DescriptionRichTextBox.Location = new System.Drawing.Point(288, 379);
             this.DescriptionRichTextBox.Name = "DescriptionRichTextBox";
             this.DescriptionRichTextBox.Size = new System.Drawing.Size(250, 151);
             this.DescriptionRichTextBox.TabIndex = 68;
             this.DescriptionRichTextBox.Text = "";
-            // 
-            // DateLabel
-            // 
-            this.DateLabel.AutoSize = true;
-            this.DateLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.DateLabel.ForeColor = System.Drawing.Color.Chocolate;
-            this.DateLabel.Location = new System.Drawing.Point(121, 383);
-            this.DateLabel.Name = "DateLabel";
-            this.DateLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.DateLabel.Size = new System.Drawing.Size(65, 28);
-            this.DateLabel.TabIndex = 67;
-            this.DateLabel.Text = "Date: ";
             // 
             // StockPriceLabel
             // 
             this.StockPriceLabel.AutoSize = true;
             this.StockPriceLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.StockPriceLabel.ForeColor = System.Drawing.Color.Chocolate;
-            this.StockPriceLabel.Location = new System.Drawing.Point(121, 327);
+            this.StockPriceLabel.Location = new System.Drawing.Point(121, 272);
             this.StockPriceLabel.Name = "StockPriceLabel";
             this.StockPriceLabel.Size = new System.Drawing.Size(122, 28);
             this.StockPriceLabel.TabIndex = 65;
@@ -207,22 +178,11 @@ namespace CSharp_Inventory
             this.SupplierNameLabel.AutoSize = true;
             this.SupplierNameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.SupplierNameLabel.ForeColor = System.Drawing.Color.Chocolate;
-            this.SupplierNameLabel.Location = new System.Drawing.Point(121, 265);
+            this.SupplierNameLabel.Location = new System.Drawing.Point(121, 210);
             this.SupplierNameLabel.Name = "SupplierNameLabel";
             this.SupplierNameLabel.Size = new System.Drawing.Size(158, 28);
             this.SupplierNameLabel.TabIndex = 63;
             this.SupplierNameLabel.Text = "Supplier Name: ";
-            // 
-            // IdLabel
-            // 
-            this.IdLabel.AutoSize = true;
-            this.IdLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.IdLabel.ForeColor = System.Drawing.Color.Chocolate;
-            this.IdLabel.Location = new System.Drawing.Point(121, 213);
-            this.IdLabel.Name = "IdLabel";
-            this.IdLabel.Size = new System.Drawing.Size(41, 28);
-            this.IdLabel.TabIndex = 62;
-            this.IdLabel.Text = "Id: ";
             // 
             // HomeButton
             // 
@@ -243,7 +203,7 @@ namespace CSharp_Inventory
             this.StockItemsListLabel.AutoSize = true;
             this.StockItemsListLabel.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.StockItemsListLabel.ForeColor = System.Drawing.Color.RosyBrown;
-            this.StockItemsListLabel.Location = new System.Drawing.Point(726, 139);
+            this.StockItemsListLabel.Location = new System.Drawing.Point(625, 139);
             this.StockItemsListLabel.Name = "StockItemsListLabel";
             this.StockItemsListLabel.Size = new System.Drawing.Size(361, 47);
             this.StockItemsListLabel.TabIndex = 79;
@@ -258,35 +218,35 @@ namespace CSharp_Inventory
             this.StockItemsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.StockItemsDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.StockItemsDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StockItemsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StockItemsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.StockItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.RosyBrown;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.StockItemsDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.RosyBrown;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.StockItemsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.StockItemsDataGridView.GridColor = System.Drawing.SystemColors.Control;
             this.StockItemsDataGridView.Location = new System.Drawing.Point(625, 210);
             this.StockItemsDataGridView.Name = "StockItemsDataGridView";
             this.StockItemsDataGridView.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StockItemsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StockItemsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.StockItemsDataGridView.RowHeadersWidth = 51;
             this.StockItemsDataGridView.RowTemplate.Height = 33;
             this.StockItemsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -313,10 +273,43 @@ namespace CSharp_Inventory
             // StockPriceTextbox
             // 
             this.StockPriceTextbox.Enabled = false;
-            this.StockPriceTextbox.Location = new System.Drawing.Point(288, 324);
+            this.StockPriceTextbox.Location = new System.Drawing.Point(288, 269);
             this.StockPriceTextbox.Name = "StockPriceTextbox";
             this.StockPriceTextbox.Size = new System.Drawing.Size(250, 31);
             this.StockPriceTextbox.TabIndex = 81;
+            // 
+            // DateTimePicker
+            // 
+            this.DateTimePicker.CustomFormat = "MMMM dd, yyyy";
+            this.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DateTimePicker.Location = new System.Drawing.Point(288, 325);
+            this.DateTimePicker.Name = "DateTimePicker";
+            this.DateTimePicker.Size = new System.Drawing.Size(250, 31);
+            this.DateTimePicker.TabIndex = 77;
+            // 
+            // DateLabel
+            // 
+            this.DateLabel.AutoSize = true;
+            this.DateLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.DateLabel.ForeColor = System.Drawing.Color.Chocolate;
+            this.DateLabel.Location = new System.Drawing.Point(121, 328);
+            this.DateLabel.Name = "DateLabel";
+            this.DateLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.DateLabel.Size = new System.Drawing.Size(65, 28);
+            this.DateLabel.TabIndex = 67;
+            this.DateLabel.Text = "Date: ";
+            // 
+            // SelectedSupplierLabel
+            // 
+            this.SelectedSupplierLabel.AutoSize = true;
+            this.SelectedSupplierLabel.BackColor = System.Drawing.Color.SeaShell;
+            this.SelectedSupplierLabel.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SelectedSupplierLabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.SelectedSupplierLabel.Location = new System.Drawing.Point(992, 139);
+            this.SelectedSupplierLabel.Name = "SelectedSupplierLabel";
+            this.SelectedSupplierLabel.Size = new System.Drawing.Size(221, 47);
+            this.SelectedSupplierLabel.TabIndex = 82;
+            this.SelectedSupplierLabel.Text = "<supplier>";
             // 
             // StockManagementForm
             // 
@@ -324,6 +317,7 @@ namespace CSharp_Inventory
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.Controls.Add(this.SelectedSupplierLabel);
             this.Controls.Add(this.StockPriceTextbox);
             this.Controls.Add(this.AddStockItemButton);
             this.Controls.Add(this.StockItemsListLabel);
@@ -331,14 +325,12 @@ namespace CSharp_Inventory
             this.Controls.Add(this.DateTimePicker);
             this.Controls.Add(this.SupplierComboBox);
             this.Controls.Add(this.ClearButton);
-            this.Controls.Add(this.AddButton);
+            this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.DescriptionLabel);
-            this.Controls.Add(this.IdTextbox);
             this.Controls.Add(this.DescriptionRichTextBox);
             this.Controls.Add(this.DateLabel);
             this.Controls.Add(this.StockPriceLabel);
             this.Controls.Add(this.SupplierNameLabel);
-            this.Controls.Add(this.IdLabel);
             this.Controls.Add(this.HomeButton);
             this.Controls.Add(this.CustomesManagementTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -360,21 +352,20 @@ namespace CSharp_Inventory
         private Label ClosingLabel;
         private Label InventorySystemLabel;
         private Label ManageItemsLabel;
-        private DateTimePicker DateTimePicker;
         private ComboBox SupplierComboBox;
         private Button ClearButton;
-        private Button AddButton;
+        private Button CreateButton;
         private Label DescriptionLabel;
-        private TextBox IdTextbox;
         private RichTextBox DescriptionRichTextBox;
-        private Label DateLabel;
         private Label StockPriceLabel;
         private Label SupplierNameLabel;
-        private Label IdLabel;
         private Button HomeButton;
         private Label StockItemsListLabel;
         private DataGridView StockItemsDataGridView;
         private Button AddStockItemButton;
         private TextBox StockPriceTextbox;
+        private DateTimePicker DateTimePicker;
+        private Label DateLabel;
+        private Label SelectedSupplierLabel;
     }
 }
