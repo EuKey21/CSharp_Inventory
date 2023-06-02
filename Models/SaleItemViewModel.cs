@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharp_Inventory.Models
 {
-    public class StockItemViewModel
+    public class SaleItemViewModel
     {
         public string Name { get; set; }
 
@@ -14,16 +14,16 @@ namespace CSharp_Inventory.Models
 
         public decimal UnitPrice { get; set; }
 
-        public int StockQuantity { get; set; }
+        public int SaleQuantity { get; set; }
 
-        public decimal? TotalPrice { get ; set; }
-        
+        public decimal? TotalPrice { get; set; }
 
-        private readonly StockItemModel _model;
+
+        private readonly SaleItemModel _model;
 
         // Constructor
-        public StockItemViewModel(StockItemModel model) => _model = model;
+        public SaleItemViewModel(SaleItemModel model) => _model = model;
 
-        public StockItemModel GetModel() => _model;
+        public SaleItemModel GetModel() => _model;
     }
 }

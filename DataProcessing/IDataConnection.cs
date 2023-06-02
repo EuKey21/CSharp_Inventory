@@ -40,6 +40,10 @@ namespace CSharp_Inventory.DataProcessing
 
         void EditSupplier(in SupplierModel model);
 
+        void AddTradeHistory_Stock(in StockModel model);
+
+        void AddTradeHistory_Sale(in SaleModel model);
+
         bool IsDataUnique(in string table, in string dataLabel, in string data);
 
         int CountDataEntry(in string table, in string columnLable, in string data);
@@ -51,6 +55,8 @@ namespace CSharp_Inventory.DataProcessing
         CategoryModel GetCategory(int id);
 
         List<SupplierModel> GetAllSupplier();
+
+        List<CustomerModel> GetAllCustomer();
 
         SupplierModel GetSupplier(int id);
 

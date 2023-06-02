@@ -16,6 +16,6 @@ namespace CSharp_Inventory.Models
 
         public int Phone { get; set; }
 
-        public string GetFullName => $"{FirstName} {LastName}";
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

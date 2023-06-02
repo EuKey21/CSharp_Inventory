@@ -109,7 +109,7 @@ namespace CSharp_Inventory
 
         private void AddStockItemButton_Click(object sender, EventArgs e)
         {
-            if (SupplierComboBox.Text == "<select>" || SupplierComboBox.Text == "<<please_insert_supplier>>")
+            if (SupplierComboBox.Text == "<select>" || SupplierComboBox.Text == "<please_insert_supplier>")
             {
                 MessageBox.Show("Please select supplier");
                 return;
@@ -122,7 +122,6 @@ namespace CSharp_Inventory
             {
                 InitItemLists();
                 prevSupplier = stock.Supplier;
-                filteredItemList = items.Where(source => source.Supplier.SupplierName == stock.Supplier.SupplierName).ToList();
             }
 
             SelectedSupplierLabel.Text = stock.Supplier.SupplierName;
@@ -143,7 +142,7 @@ namespace CSharp_Inventory
 
         private bool ValidForm()
         {
-            if(SupplierComboBox.Text == "<select>" || SupplierComboBox.Text == "<<please_insert_supplier>>")
+            if(SupplierComboBox.Text == "<select>" || SupplierComboBox.Text == "<please_insert_supplier>")
             {
                 MessageBox.Show("Please fill all items");
                 return false;
@@ -176,6 +175,7 @@ namespace CSharp_Inventory
 
                 // Add to the SQL
                 stock.Id = Config.Connection.AddStock(stock);
+                Config.Connection.AddTradeHistory_Stock(stock);
                 
                 foreach (StockItemModel stockItem in stockItemList)
                 {

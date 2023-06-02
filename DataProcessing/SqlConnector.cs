@@ -447,6 +447,66 @@ namespace CSharp_Inventory.DataProcessing
             }
         }
 
+        public void AddTradeHistory_Stock(in StockModel model)
+        {
+            string query = "";
+
+            query += "DECLARE @StockId INT; ";
+            query += "SET @StockId = (SELECT " + Table.StockColumn.Id + " ";
+            query += "FROM " + Table.Stock + " ";
+            query += "WHERE " + Table.StockColumn.Id + " = @FK_StockId); ";
+
+            query += "INSERT INTO " + Table.TradeHistory + " (";
+            query += Table.TradeHistoryColumn.StockId + " ,";
+            query += Table.TradeHistoryColumn.Total + " ,";
+            query += Table.TradeHistoryColumn.Date + ") ";
+            query += "VALUES (@StockId, @Total, @Date)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    // Id is auto incremented in SQL by setting Identity to true.
+                    cmd.Parameters.AddWithValue("@FK_StockId", model.Id);
+                    cmd.Parameters.AddWithValue("@Total", model.StockPrice);
+                    cmd.Parameters.AddWithValue("@Date", model.Date);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddTradeHistory_Sale(in SaleModel model)
+        {
+            string query = "";
+
+            query += "DECLARE @SaleId INT; ";
+            query += "SET @SaleId = (SELECT " + Table.SaleColumn.Id + " ";
+            query += "FROM " + Table.Sale + " ";
+            query += "WHERE " + Table.SaleColumn.Id + " = @FK_SaleId); ";
+
+            query += "INSERT INTO " + Table.TradeHistory + " (";
+            query += Table.TradeHistoryColumn.SaleId + " ,";
+            query += Table.TradeHistoryColumn.Total + " ,";
+            query += Table.TradeHistoryColumn.Date + ") ";
+            query += "VALUES (@SaleId, @Total, @Date)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    // Id is auto incremented in SQL by setting Identity to true.
+                    cmd.Parameters.AddWithValue("@FK_SaleId", model.Id);
+                    cmd.Parameters.AddWithValue("@Total", model.SalePrice);
+                    cmd.Parameters.AddWithValue("@Date", model.Date);
+
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void DeleteRecord(in string table, in string primaryKeyLabel, in string primaryKey)
         {
             string query = "DELETE FROM " + table + " WHERE " + primaryKeyLabel + " = @" + primaryKeyLabel;
@@ -622,6 +682,38 @@ namespace CSharp_Inventory.DataProcessing
                                 supplier.SupplierName = dr[Table.SupplierColumn.SupplierName].ToString();
                                 supplier.Phone = int.Parse(dr[Table.SupplierColumn.Phone].ToString());
                                 list.Add(supplier);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public List<CustomerModel> GetAllCustomer()
+        {
+            List<CustomerModel> list = new List<CustomerModel>();
+            string query = "SELECT * FROM " + Table.Customer;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                CustomerModel cutomer = new CustomerModel();
+                                cutomer.Id = int.Parse(dr[Table.CustomerColumn.Id].ToString());
+                                cutomer.FirstName = dr[Table.CustomerColumn.FirstName].ToString();
+                                cutomer.LastName = dr[Table.CustomerColumn.LastName].ToString();
+                                cutomer.Phone = int.Parse(dr[Table.CustomerColumn.Phone].ToString());
+                                list.Add(cutomer);
                             }
                         }
                     }

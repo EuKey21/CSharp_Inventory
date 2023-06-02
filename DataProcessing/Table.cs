@@ -20,6 +20,8 @@ namespace CSharp_Inventory.DataProcessing
             public static string LastName { get { return new string("LastName"); } }
 
             public static string Phone { get { return new string("Phone"); } }
+
+            public static string FullName { get { return new string("FullName"); } }
         }
 
         public static string ItemCategory { get { return new string("ItemCategoryTable"); } }
@@ -120,6 +122,17 @@ namespace CSharp_Inventory.DataProcessing
             public static string SupplierName { get { return new string("SupplierName"); } }
 
             public static string Phone { get { return new string("Phone"); } }
+        }
+
+        public static string TradeHistory { get { return new string("TradeHistoryTable"); } }
+
+        public static class TradeHistoryColumn
+        {
+            public static string Id { get { return new string("Id"); } }
+            public static string StockId { get { return new string("StockId"); } }
+            public static string SaleId { get { return new string("SaleId"); } }
+            public static string Total { get { return new string("Total"); } }
+            public static string Date { get { return new string("Date"); } }
         }
 
         public static string User { get { return new string("UserTable"); } }

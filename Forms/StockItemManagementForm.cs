@@ -61,7 +61,7 @@ namespace CSharp_Inventory
             ).ToList();
             ItemsDataGridView.Columns[Table.ItemColumn.UnitPrice].DefaultCellStyle.Format = "0.00";
 
-            // select the first road automatically after loading
+            // select the first row automatically after loading
             if (ItemsDataGridView.Rows.Count > 0)
             {
                 ItemsDataGridView.FirstDisplayedScrollingRowIndex = 0;
