@@ -111,6 +111,7 @@
             this.HomeButton.TabIndex = 16;
             this.HomeButton.Text = "HOME";
             this.HomeButton.UseVisualStyleBackColor = false;
+            this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
             // IdTextbox
             // 
@@ -288,7 +289,7 @@
             this.Controls.Add(this.CustomesManagementTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ItemCategoriesManagementForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ItemCategoriesManagementForm";
             this.Load += new System.EventHandler(this.ItemCategoriesManagementForm_Load);
             this.CustomesManagementTopPanel.ResumeLayout(false);

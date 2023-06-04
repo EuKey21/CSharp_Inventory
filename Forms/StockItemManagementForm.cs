@@ -139,6 +139,9 @@ namespace CSharp_Inventory
             }
         }
 
-        
+        private void StockItemsListLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

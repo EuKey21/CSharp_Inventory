@@ -115,6 +115,7 @@
             this.HomeButton.TabIndex = 15;
             this.HomeButton.Text = "HOME";
             this.HomeButton.UseVisualStyleBackColor = false;
+            this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
             // CustomersDataGridView
             // 
@@ -335,7 +336,7 @@
             this.Controls.Add(this.CustomesManagementTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CustomersManagementForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CustomersManagementForm";
             this.Load += new System.EventHandler(this.CustomersManagementForm_Load);
             this.CustomesManagementTopPanel.ResumeLayout(false);

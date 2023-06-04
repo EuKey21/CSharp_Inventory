@@ -27,7 +27,11 @@ namespace CSharp_Inventory
 
         private void ClosingLabel_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult dialogResult = MessageBox.Show("Terminate the application? ", "Warning", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -114,6 +118,11 @@ namespace CSharp_Inventory
         private void CategoriesDataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             SharedMethods.PrintRowNumToGridView(sender, e);
+        }
+
+        private void HomeButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

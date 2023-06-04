@@ -230,6 +230,7 @@
             this.HomeButton.TabIndex = 43;
             this.HomeButton.Text = "HOME";
             this.HomeButton.UseVisualStyleBackColor = false;
+            this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
             // SuppliersListLabel
             // 
@@ -312,7 +313,7 @@
             this.Controls.Add(this.CustomesManagementTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SuppliersManagementForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SuppliersManagementForm";
             this.Load += new System.EventHandler(this.SuppliersManagementForm_Load);
             this.CustomesManagementTopPanel.ResumeLayout(false);

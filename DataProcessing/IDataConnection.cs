@@ -10,6 +10,7 @@ namespace CSharp_Inventory.DataProcessing
 {
     public interface IDataConnection
     {
+        bool ValidateLogin(string username, string password);
         void AddPerson(in PersonModel model);
 
         void EditPerson(in PersonModel model);
@@ -59,6 +60,22 @@ namespace CSharp_Inventory.DataProcessing
         List<CustomerModel> GetAllCustomer();
 
         SupplierModel GetSupplier(int id);
+
+        CustomerModel GetCustomer(int id);
+
+        StockModel GetStock(int id);
+
+        List<StockItemModel> GetStockItemList(int stockId);
+
+        SaleModel GetSale(int id);
+
+        List<SaleItemModel> GetSaleItemList(int saleId);
+
+        ItemModel GetItem(int id);
+
+        PersonModel GetPerson(string username);
+
+        List<TradeHistoryModel> GetAllTradeHistory();
 
         List<ItemModel> GetAllItem();
 

@@ -22,7 +22,11 @@ namespace CSharp_Inventory
         
         private void ClosingLabel_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult dialogResult = MessageBox.Show("Terminate the application? ", "Warning", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void ClearInput()
@@ -228,54 +232,9 @@ namespace CSharp_Inventory
             }
         }
 
-        private void UsernameTextbox_TextChanged(object sender, EventArgs e)
+        private void HomeButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void PasswordLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PasswordTextbox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FirstNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FirstNameTextbox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LastNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LastNameTextbox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GenderLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GenderTextbox_TextChanged(object sender, EventArgs e)
-        {
-
+            Close();
         }
     }
 }

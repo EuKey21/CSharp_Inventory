@@ -24,7 +24,11 @@ namespace CSharp_Inventory
 
         private void ClosingLabel_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult dialogResult = MessageBox.Show("Terminate the application? ", "Warning", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void SetupComboBoxes()
@@ -169,6 +173,11 @@ namespace CSharp_Inventory
                 ItemsDataGridView.DataSource = Config.Connection.PopulateTable(Table.Item);
                 ClearInput();
             }
+        }
+
+        private void HomeButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

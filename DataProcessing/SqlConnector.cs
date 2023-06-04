@@ -14,7 +14,33 @@ namespace CSharp_Inventory.DataProcessing
 {
     public class SqlConnector : IDataConnection
     {
-        private readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\fexke\Documents\InventoryDB.mdf;Integrated Security=True;Connect Timeout=30";
+        private readonly string connectionString = @"";
+
+        public bool ValidateLogin(string username, string password)
+        {
+            bool result = false;
+
+            string query = "SELECT COUNT(*) FROM " + Table.User;
+            query += " WHERE " + Table.UserColumn.UserName + " = @Username";
+            query += " AND " + Table.UserColumn.Password + " = @Password";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
+
+                    connection.Open();
+                    int count = (int)cmd.ExecuteScalar();
+                    if (count > 0) result = true;
+
+                    // username is primary key, so there is only one possible match
+                }
+            }
+
+            return result;
+        }
 
         public void AddPerson(in PersonModel model)
         {
@@ -751,6 +777,224 @@ namespace CSharp_Inventory.DataProcessing
             return model;
         }
 
+        public CustomerModel GetCustomer(int id)
+        {
+            CustomerModel model = new CustomerModel();
+
+            string query = "SELECT * FROM " + Table.Customer;
+            query += " WHERE " + Table.CustomerColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.Id = int.Parse(dr[Table.CustomerColumn.Id].ToString());
+                            model.FirstName = dr[Table.CustomerColumn.FirstName].ToString();
+                            model.LastName = dr[Table.CustomerColumn.LastName].ToString();
+                            model.Phone = int.Parse(dr[Table.CustomerColumn.Phone].ToString());
+                        }
+                    }
+                }
+            }
+
+            return model;
+        }
+
+        public StockModel GetStock(int id)
+        {
+            StockModel model = new StockModel();
+
+            string query = "SELECT * FROM " + Table.Stock;
+            query += " WHERE " + Table.StockColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.Id = int.Parse(dr[Table.StockColumn.Id].ToString());
+                            model.Supplier = GetSupplier(int.Parse(dr[Table.StockColumn.SupplierId].ToString()));
+                            model.StockPrice = decimal.Parse(dr[Table.StockColumn.StockPrice].ToString());
+                            model.Date = DateTime.Parse(dr[Table.StockColumn.Date].ToString());
+                            model.Description = dr[Table.StockColumn.Description].ToString();
+                        }
+                    }
+                }
+            }
+
+            return model;
+        }
+
+        public List<StockItemModel> GetStockItemList(int stockId)
+        {
+            List<StockItemModel> list = new List<StockItemModel>();
+
+            string query = "SELECT * FROM " + Table.StockItem;
+            query += " WHERE " + Table.StockItemColumn.StockId + " = @StockId";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@StockId", stockId);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                StockItemModel stockItem = new StockItemModel();
+                                stockItem.Stock = GetStock(int.Parse(dr[Table.StockItemColumn.StockId].ToString()));
+                                stockItem.Item = GetItem(int.Parse(dr[Table.StockItemColumn.ItemId].ToString()));
+                                stockItem.ItemStockQuantity = int.Parse(dr[Table.StockItemColumn.ItemStockQuantity].ToString());
+                                list.Add(stockItem);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public SaleModel GetSale(int id)
+        {
+            SaleModel model = new SaleModel();
+
+            string query = "SELECT * FROM " + Table.Sale;
+            query += " WHERE " + Table.SaleColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.Id = int.Parse(dr[Table.SaleColumn.Id].ToString());
+                            model.Customer = GetCustomer(int.Parse(dr[Table.SaleColumn.CustomerId].ToString()));
+                            model.SalePrice = decimal.Parse(dr[Table.SaleColumn.SalePrice].ToString());
+                            model.Date = DateTime.Parse(dr[Table.SaleColumn.Date].ToString());
+                            model.Description = dr[Table.SaleColumn.Description].ToString();
+                        }
+                    }
+                }
+            }
+
+            return model;
+        }
+
+        public List<SaleItemModel> GetSaleItemList(int saleId)
+        {
+            List<SaleItemModel> list = new List<SaleItemModel>();
+
+            string query = "SELECT * FROM " + Table.SaleItem;
+            query += " WHERE " + Table.SaleItemColumn.SaleId + " = @SaleId";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@SaleId", saleId);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                SaleItemModel saleItem = new SaleItemModel();
+                                saleItem.Sale = GetSale(int.Parse(dr[Table.SaleItemColumn.SaleId].ToString()));
+                                saleItem.Item = GetItem(int.Parse(dr[Table.SaleItemColumn.ItemId].ToString()));
+                                saleItem.ItemSaleQuantity = int.Parse(dr[Table.SaleItemColumn.ItemSaleQuantity].ToString());
+                                list.Add(saleItem);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public ItemModel GetItem(int id)
+        {
+            ItemModel model = new ItemModel();
+
+            string query = "SELECT * FROM " + Table.Item;
+            query += " WHERE " + Table.ItemColumn.Id + " = @Id";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            model.Id = int.Parse(dr[Table.ItemColumn.Id].ToString());
+                            model.ItemName = dr[Table.ItemColumn.ItemName].ToString();
+                            model.Category = GetCategory(int.Parse(dr[Table.ItemColumn.CategoryId].ToString()));
+                            model.Supplier = GetSupplier(int.Parse(dr[Table.ItemColumn.SupplierId].ToString()));
+                            model.Quantity = int.Parse(dr[Table.ItemColumn.Quantity].ToString());
+                            model.UnitPrice = decimal.Parse(dr[Table.ItemColumn.UnitPrice].ToString());
+                            model.Description = dr[Table.ItemColumn.Description].ToString();   
+                        }
+                    }
+                }
+            }
+
+            return model;
+        }
+
+        public PersonModel GetPerson(string username)
+        {
+            PersonModel person = new PersonModel();
+            string query = " SELECT * FROM " + Table.User;
+            query += " WHERE " + Table.UserColumn.UserName + " = @Username";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            person.UserName = dr["Username"].ToString();
+                            person.Password = dr["Password"].ToString();
+                            person.FirstName = dr["FirstName"].ToString();
+                            person.LastName = dr["LastName"].ToString();
+                            person.Gender = char.Parse(dr["Gender"].ToString());
+                            person.Age = int.Parse(dr["Age"].ToString());
+                            person.Email = dr["Email"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return person;
+        }
+
         public List<ItemModel> GetAllItem()
         {
             List<ItemModel> list = new List<ItemModel>();
@@ -777,6 +1021,47 @@ namespace CSharp_Inventory.DataProcessing
                                 item.UnitPrice = decimal.Parse(dr[Table.ItemColumn.UnitPrice].ToString());
                                 item.Description = dr[Table.ItemColumn.Description].ToString();
                                 list.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public List<TradeHistoryModel> GetAllTradeHistory()
+        {
+            List<TradeHistoryModel> list = new List<TradeHistoryModel>();
+            string query = "SELECT * FROM " + Table.TradeHistory;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                TradeHistoryModel tradeHistory = new TradeHistoryModel();
+                                tradeHistory.Id = int.Parse(dr[Table.ItemColumn.Id].ToString());
+
+                                if(!dr.IsDBNull(dr.GetOrdinal(Table.TradeHistoryColumn.StockId)))
+                                {
+                                    tradeHistory.Stock = GetStock(int.Parse(dr[Table.TradeHistoryColumn.StockId].ToString()));
+                                }
+                                else
+                                {
+                                    tradeHistory.Sale = GetSale(int.Parse(dr[Table.TradeHistoryColumn.SaleId].ToString()));
+                                }
+
+                                tradeHistory.Total = decimal.Parse(dr[Table.TradeHistoryColumn.Total].ToString());
+                                tradeHistory.Date = DateTime.Parse(dr[Table.TradeHistoryColumn.Date].ToString());
+                                list.Add(tradeHistory);
                             }
                         }
                     }

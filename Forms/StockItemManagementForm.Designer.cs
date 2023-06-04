@@ -175,6 +175,7 @@
             this.StockItemsListLabel.Size = new System.Drawing.Size(183, 23);
             this.StockItemsListLabel.TabIndex = 66;
             this.StockItemsListLabel.Text = "List of Stock Items";
+            this.StockItemsListLabel.Click += new System.EventHandler(this.StockItemsListLabel_Click);
             // 
             // DelButton
             // 

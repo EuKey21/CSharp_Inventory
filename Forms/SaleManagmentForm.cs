@@ -106,7 +106,11 @@ namespace CSharp_Inventory
 
         private void ClosingLabel_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult dialogResult = MessageBox.Show("Terminate the application? ", "Warning", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void SaleManagmentForm_Load(object sender, EventArgs e)
@@ -186,6 +190,11 @@ namespace CSharp_Inventory
                 MessageBox.Show("Sale Successfully Added");
                 ClearInput();
             }
+        }
+
+        private void HomeButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

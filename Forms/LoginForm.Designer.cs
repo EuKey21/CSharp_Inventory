@@ -42,6 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.ClosingLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -198,12 +199,23 @@
             this.panel1.Size = new System.Drawing.Size(50, 50);
             this.panel1.TabIndex = 4;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(-2, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(196, 507);
+            this.richTextBox1.TabIndex = 5;
+            this.richTextBox1.Text = "Add database connection string \nto the first private variable in\n ./DataProcessin" +
+    "g/SqlConnector/\n\nThen, use ./Inventory_schema.sql\nto create all the require tabl" +
+    "es for\nthe inverntory\n";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.ClientSize = new System.Drawing.Size(782, 753);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.LoginPanel);
@@ -212,6 +224,7 @@
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.LoginPanel.ResumeLayout(false);
             this.LoginPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -237,5 +250,6 @@
         private Label ClearLable;
         private Label ClosingLabel;
         private Panel panel1;
+        private RichTextBox richTextBox1;
     }
 }
